@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { TabBar, List, NavBar, Icon } from 'antd-mobile';
+import OrderList from './components/OrderList'
+
+const Item = List.Item;
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +18,11 @@ class App extends Component {
   renderContent(pageText) {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-        <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
+      {/* Header */}
+      <List renderHeader={() => 'Parking Lots'} className="my-list">
+        <OrderList />
+      </List>
+        {/* <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
         <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
           onClick={(e) => {
             e.preventDefault();
@@ -35,7 +42,7 @@ class App extends Component {
           }}
         >
           Click to switch fullscreen
-        </a>
+        </a> */}
       </div>
     );
   }
@@ -43,7 +50,7 @@ class App extends Component {
   render() {
     return (
       <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { minHeight: 892 }}>
-      <NavBar ><h2>Parking </h2></NavBar >
+      <NavBar ><h3>Parking </h3></NavBar >
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
