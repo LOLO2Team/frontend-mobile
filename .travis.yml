@@ -1,14 +1,12 @@
 language: node_js
- - "stable"
-
+node_js:
+  - "stable"
 cache:
- directories:
-  - node_modules
+  directories:
+    - node_modules
 script:
- - npm run build
- 
+  - echo "npm test temporarily disabled"
 deploy:
   provider: heroku
-  api_key:
-    secure: 744fff7d-5617-49c1-a691-e0aa1473a891
+  api_key: 744fff7d-5617-49c1-a691-e0aa1473a891
   app: parking-lot-frontend-app
