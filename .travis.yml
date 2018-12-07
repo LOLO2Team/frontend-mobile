@@ -12,5 +12,3 @@ deploy:
   api_key:
     secure: 744fff7d-5617-49c1-a691-e0aa1473a891
   app: parking-lot-frontend-app
-  on:
-repo: LOLO2Team/frontend-mobile 
