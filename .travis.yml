@@ -9,4 +9,4 @@ script:
 deploy:
   provider: heroku
   api_key: 744fff7d-5617-49c1-a691-e0aa1473a891
-  app: parking-lot-frontend-mobile
+  app: parking-lot-frontend-app
