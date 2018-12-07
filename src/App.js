@@ -18,8 +18,7 @@ class App extends Component {
   renderContent(pageText) {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-      {/* Header */}
-      <List renderHeader={() => 'Parking Lots'} className="my-list">
+      <List className="my-list">
         <OrderList />
       </List>
         {/* <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>

@@ -7,7 +7,7 @@ export default class Order extends Component {
     render() {
         return (
             <div>
-                <Item extra={'extra content'}>Parking Lot</Item>
+                <Item extra={'details+'}>Parking Order</Item>
             </div>
         )
     }
