@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { TabBar, List, NavBar, Icon } from 'antd-mobile';
-import OrderList from './components/OrderList'
+import OrderList from './components/OrderList';
+// import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 const Item = List.Item;
 
@@ -16,34 +17,59 @@ class App extends Component {
   }
 
   renderContent(pageText) {
-    return (
-      <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-      <List className="my-list">
-        <OrderList />
-      </List>
-        {/* <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
-        <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
-          onClick={(e) => {
-            e.preventDefault();
-            this.setState({
-              hidden: !this.state.hidden,
-            });
-          }}
-        >
-          Click to show/hide tab-bar
-        </a>
-        <a style={{ display: 'block', marginBottom: 600, color: '#108ee9' }}
-          onClick={(e) => {
-            e.preventDefault();
-            this.setState({
-              fullScreen: !this.state.fullScreen,
-            });
-          }}
-        >
-          Click to switch fullscreen
-        </a> */}
-      </div>
-    );
+    switch(pageText) {
+      case "Orders":
+        return (<OrderList />);
+      
+      case "Park/Fetch":
+        // return (<Park />);
+        return null;
+
+      case "History":
+        // return (<History />);
+        return null;
+
+      case "My Profile":
+        // return (<MyProfile />);
+        return null;
+
+      default:
+        return null;
+      
+    }
+    // return (
+    //   <Router>
+    //     <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
+    //     <Switch>
+          
+    //       <List className="my-list">
+    //         <OrderList />
+    //       </List>
+    //     </Switch>
+    //       {/* <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
+    //       <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
+    //         onClick={(e) => {
+    //           e.preventDefault();
+    //           this.setState({
+    //             hidden: !this.state.hidden,
+    //           });
+    //         }}
+    //       >
+    //         Click to show/hide tab-bar
+    //       </a>
+    //       <a style={{ display: 'block', marginBottom: 600, color: '#108ee9' }}
+    //         onClick={(e) => {
+    //           e.preventDefault();
+    //           this.setState({
+    //             fullScreen: !this.state.fullScreen,
+    //           });
+    //         }}
+    //       >
+    //         Click to switch fullscreen
+    //       </a> */}
+    //     </div>
+    //   </Router>
+    // );
   }
 
   render() {
