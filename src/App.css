@@ -30,3 +30,9 @@
     transform: rotate(360deg);
   }
 }
+
+.nav-bottom .am-tabs-tab-bar-wrap {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
