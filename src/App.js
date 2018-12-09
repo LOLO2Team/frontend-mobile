@@ -16,10 +16,10 @@ class App extends Component {
     };
   }
 
-  renderContent(pageText) {
+  renderContent(pageText, id=0) {
     switch(pageText) {
       case "Orders":
-        return (<OrderList />);
+        return (<OrderList onClick={this.renderContent} />);
       
       case "Park/Fetch":
         // return (<Park />);
@@ -32,6 +32,9 @@ class App extends Component {
       case "My Profile":
         // return (<MyProfile />);
         return null;
+
+      case "Order":
+        return (<OrderDetails id={id} />);
 
       default:
         return null;
