@@ -69,8 +69,7 @@ class App extends Component {
       case "Order Details":
         return (<OrderDetails 
           setRenderContent={this.setRenderContent} 
-          setBottomNav={this.setBottomNav} 
-          orderId={this.state.orderId} />);
+          setBottomNav={this.setBottomNav} />);
 
       case "Park Car":
         return (<ParkCar 
