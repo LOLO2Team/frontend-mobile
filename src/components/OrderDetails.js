@@ -11,8 +11,12 @@ export default class OrderDetails extends Component {
     }
 
     onClickPark = () => {
-        this.props.setRenderContent("Park/Fetch")
-        this.props.setBottomNav("ParkFetchTab")
+        this.props.setRenderContent("Park/Fetch");
+        this.props.setBottomNav("ParkFetchTab");
+    }
+
+    onClickCancel = () => {
+        this.props.setRenderContent("Orders");
     }
     render() {
         return (
@@ -23,7 +27,8 @@ export default class OrderDetails extends Component {
                 >
                     <p>Order ID: <span>{this.state.order.orderId}</span></p>
                     <p>Car ID: <span>{this.state.order.carId}</span></p>
-                    <button onClick={this.onClickPark}>Grab Car</button>
+                    <button onClick={this.onClickPark}>Confirm Order</button>
+                    <button onClick={this.onClickCancel}>Cancel</button>
                 </Content>
             </div>
         )

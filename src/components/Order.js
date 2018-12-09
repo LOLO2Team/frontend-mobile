@@ -12,7 +12,10 @@ export default class Order extends Component {
     render() {
         return (
             <div>
-                <Item onClick={this.orderClicked} >Parking Order {this.props.order.id}</Item>
+                <Item onClick={this.orderClicked} className="order-item" >
+                    <div>Parking Order {this.props.order.orderId}</div>
+                    <div>{this.props.order.carId}</div>
+                </Item>
             </div>
         )
     }

@@ -36,3 +36,7 @@
   bottom: 0;
   width: 100%;
 }
+
+.order-item {
+  border-bottom: 1px lightblue solid;
+}

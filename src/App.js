@@ -31,8 +31,6 @@ class App extends Component {
   }
 
   setParkingOrder = (newParkingOrder) => {
-    console.log("set parking order");
-    console.log(newParkingOrder);
     this.setState({
       parkingOrder: newParkingOrder,
       orderId: newParkingOrder.orderId
