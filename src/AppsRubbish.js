@@ -15,6 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
       selectedTab: 'OrdersTab',
+      // fullScreen: false,
       content: "Orders",
       orderId: 0
     };
@@ -40,6 +41,7 @@ class App extends Component {
       
       case "Park/Fetch":
         return (<ParkingLotList onClick={this.setRenderContent}/>);
+        // return null;
 
       case "History":
         // return (<History />);
@@ -56,6 +58,39 @@ class App extends Component {
         return null;
       
     }
+    // return (
+    //   <Router>
+    //     <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
+    //     <Switch>
+          
+    //       <List className="my-list">
+    //         <OrderList />
+    //       </List>
+    //     </Switch>
+    //       {/* <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
+    //       <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
+    //         onClick={(e) => {
+    //           e.preventDefault();
+    //           this.setState({
+    //             hidden: !this.state.hidden,
+    //           });
+    //         }}
+    //       >
+    //         Click to show/hide tab-bar
+    //       </a>
+    //       <a style={{ display: 'block', marginBottom: 600, color: '#108ee9' }}
+    //         onClick={(e) => {
+    //           e.preventDefault();
+    //           this.setState({
+    //             fullScreen: !this.state.fullScreen,
+    //           });
+    //         }}
+    //       >
+    //         Click to switch fullscreen
+    //       </a> */}
+    //     </div>
+    //   </Router>
+    // );
   }
 
   render() {
