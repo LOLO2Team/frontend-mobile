@@ -15,7 +15,7 @@ export default class BottomNav extends Component {
           <TabBar.Item
             title="Orders"
             key="Orders"
-            icon={<i class="fa-icon fas fa-clipboard-list"></i>
+            icon={<i className="fa-icon fas fa-clipboard-list"></i>
             }
             selectedIcon={<i className="fa-icon fas fa-clipboard-list"></i>
             }

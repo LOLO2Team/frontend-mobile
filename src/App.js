@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { TabBar, List, NavBar, Icon } from 'antd-mobile';
+// import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import OrderList from './components/OrderList';
 import OrderDetails from './components/OrderDetails';
 import ParkingLotList from './components/ParkingLotList';
@@ -9,7 +9,7 @@ import HeaderBar from './components/HeaderBar';
 import BottomNav from './components/BottomNav';
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-const Item = List.Item;
+// const Item = List.Item;
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +17,9 @@ class App extends Component {
     this.state = {
       selectedTab: 'OrdersTab',
       content: "Orders",
-      orderId: 0
+      orderId: 0,
+      parkingOrder: null,
+      parkingLot: ''
     };
   }
 
@@ -25,6 +27,21 @@ class App extends Component {
     this.setState({
       content: newContent,
       orderId: id
+    });
+  }
+
+  setParkingOrder = (newParkingOrder) => {
+    console.log("set parking order");
+    console.log(newParkingOrder);
+    this.setState({
+      parkingOrder: newParkingOrder,
+      orderId: newParkingOrder.orderId
+    });
+  }
+
+  setParkingLot = (newParkingLot) => {
+    this.setState({
+      parkingLot: newParkingLot
     });
   }
 
@@ -37,10 +54,10 @@ class App extends Component {
   renderContent(pageText, id=0) {
     switch(pageText) {
       case "Orders":
-        return (<OrderList onClick={this.setRenderContent}/>);
+        return (<OrderList setRenderContent={this.setRenderContent} setParkingOrder={this.setParkingOrder} />);
       
       case "Park/Fetch":
-        return (<ParkingLotList onClick={this.setRenderContent}/>);
+        return (<ParkingLotList setRenderContent={this.setRenderContent} setParkingLot={this.setParkingLot} />);
 
       case "History":
         // return (<History />);
@@ -51,10 +68,17 @@ class App extends Component {
         return null;
 
       case "Order Details":
-        return (<OrderDetails setRenderContent={this.setRenderContent} setBottomNav={this.setBottomNav} orderId={this.state.orderId}/>);
+        return (<OrderDetails 
+          setRenderContent={this.setRenderContent} 
+          setBottomNav={this.setBottomNav} 
+          orderId={this.state.orderId} />);
 
       case "Park Car":
-        return (<ParkCar setRenderContent={this.setRenderContent} setBottomNav={this.setBottomNav}/>)
+        return (<ParkCar 
+          setRenderContent={this.setRenderContent} 
+          setBottomNav={this.setBottomNav}
+          parkingOrder={this.state.parkingOrder}
+          parkingLot={this.state.parkingLot} />)
 
       default:
         return null;
