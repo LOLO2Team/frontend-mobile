@@ -74,9 +74,7 @@ class App extends Component {
       case "Park Car":
         return (<ParkCar 
           setRenderContent={this.setRenderContent} 
-          setBottomNav={this.setBottomNav}
-          parkingOrder={this.state.parkingOrder}
-          parkingLot={this.state.parkingLot} />)
+          setBottomNav={this.setBottomNav} />)
 
       default:
         return null;

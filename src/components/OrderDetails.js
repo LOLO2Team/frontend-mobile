@@ -11,7 +11,6 @@ class OrderDetails extends Component {
   //   }
   // }
   getOrder = (orderId) => {
-    console.log(orderId)
     return this.props.parkingOrders.find(
       (order) => order.orderId === orderId
     );

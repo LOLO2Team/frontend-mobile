@@ -6,11 +6,12 @@ const initialState = {
     { orderId: 3, carId: "car3" }
   ],
   parkingLots: [
-    {lotId: 1, lotName: "Sheung Wan Parking Lot"},
-    {lotId: 2, lotName: "Central Parking Lot"},
-    {lotId: 3, lotName: "HH Parking Lot"}
+    {lotId: 0, lotName: "Sheung Wan Parking Lot"},
+    {lotId: 1, lotName: "Central Parking Lot"},
+    {lotId: 2, lotName: "HH Parking Lot"}
   ],
   orderId: 0,
+  parkingLot: "Sheung Wan Parking Lot",
   content: "Orders"
 }
 
