@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import OrderList from './components/OrderList';
+import OrderDetails from './components/OrderDetails';
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 const Item = List.Item;
