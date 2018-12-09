@@ -24,9 +24,10 @@ export default (state = initialState, { type, payload }) => {
         content: payload
       }
 
-    case "GET_PARKING_LOTS":
+    case "SET_PARKING_ORDER":
     return {
-      ...state
+      ...state,
+      orderId: payload
     }
 
     default:

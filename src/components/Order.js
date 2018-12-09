@@ -7,7 +7,7 @@ const Item = List.Item;
 class Order extends Component {
   orderClicked = () => {
     this.props.setRenderContent("Order Details", this.props.order.id);
-    this.props.setParkingOrder(this.props.order);
+    this.props.setParkingOrder(this.props.order.orderId);
   }
 
   render() {
@@ -27,12 +27,19 @@ class Order extends Component {
 // });
 
 const mapDispatchToProps = dispatch => ({
+  setParkingOrder: (orderId) => {
+    dispatch({
+      type: "SET_PARKING_ORDER",
+      payload: orderId
+    })
+  },
   goToOrderDetails: () => {
     dispatch({
       type: "SET_RENDER_CONTENT",
       payload: "Order Details"
-    })
+    });
   }
 });
+
 
 export default connect(null, mapDispatchToProps)(Order);

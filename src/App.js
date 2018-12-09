@@ -53,7 +53,7 @@ class App extends Component {
   renderContent(pageText, id=0) {
     switch(pageText) {
       case "Orders":
-        return (<OrderList setRenderContent={this.setRenderContent} setParkingOrder={this.setParkingOrder} />);
+        return (<OrderList setRenderContent={this.setRenderContent} />);
       
       case "Park/Fetch":
         return (<ParkingLotList setRenderContent={this.setRenderContent} setParkingLot={this.setParkingLot} />);
