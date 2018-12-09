@@ -14,13 +14,22 @@ class App extends Component {
       selectedTab: 'redTab',
       hidden: false,
       fullScreen: false,
+      content: "Orders",
+      orderId: 0
     };
+  }
+
+  setRenderContent = (newContent, id=0) => {
+    this.setState({
+      content: newContent,
+      orderId: id
+    });
   }
 
   renderContent(pageText, id=0) {
     switch(pageText) {
       case "Orders":
-        return (<OrderList onClick={this.renderContent} />);
+        return (<OrderList onClick={this.setRenderContent} />);
       
       case "Park/Fetch":
         // return (<Park />);
@@ -34,7 +43,7 @@ class App extends Component {
         // return (<MyProfile />);
         return null;
 
-      case "Order":
+      case "Order Details":
         return (<OrderDetails id={id} />);
 
       default:
@@ -103,7 +112,7 @@ class App extends Component {
               }}
               data-seed="logId"
             >
-              {this.renderContent('Orders')}
+              {this.renderContent(this.state.content)}
             </TabBar.Item>
             <TabBar.Item
               icon={
