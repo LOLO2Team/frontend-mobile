@@ -38,9 +38,9 @@ class App extends Component {
   renderContent(pageText, id=0) {
     switch(pageText) {
       case "Orders":
-        return (<OrderList onClick={this.setRenderContent} />);
+        return (<OrderList onClick={this.setRenderContent}/>);
       
-      case "Park":
+      case "Park/Fetch":
         return (<ParkingLotList onClick={this.setRenderContent}/>);
         // return null;
 
@@ -53,7 +53,7 @@ class App extends Component {
         return null;
 
       case "Order Details":
-        return (<OrderDetails onClick={this.setRenderContent} />);
+        return (<OrderDetails setRenderContent={this.setRenderContent} setBottomNav = {this.setBottomNav}/>);
 
       default:
         return null;

@@ -4,7 +4,8 @@ const { Header, Sider, Content } = Layout;
 
 export default class OrderDetails extends Component {
     onClickPark = () => {
-        this.props.onClick("Park")
+        this.props.setRenderContent("Park/Fetch")
+        this.props.setBottomNav("ParkFetchTab")
     }
     render() {
         return (
