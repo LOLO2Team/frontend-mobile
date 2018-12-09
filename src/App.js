@@ -29,6 +29,12 @@ class App extends Component {
     });
   }
 
+  setBottomNav = (navItem) => {
+    this.setState({
+      selectedTab: navItem
+    });
+  }
+
   renderContent(pageText, id=0) {
     switch(pageText) {
       case "Orders":
@@ -93,7 +99,7 @@ class App extends Component {
       <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { minHeight: 892 }}>
         <HeaderBar />
         {this.renderContent(this.state.content)}
-        <BottomNav state={this.state} setState={(newState) => this.setState(newState)} />
+        <BottomNav state={this.state} setRenderContent={this.setRenderContent} setBottomNav={this.setBottomNav} setState={(newState) => this.setState(newState)} />
       </div>
     );
   }

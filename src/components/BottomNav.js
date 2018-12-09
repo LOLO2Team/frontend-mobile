@@ -21,14 +21,11 @@ export default class BottomNav extends Component {
             selected={this.props.state.selectedTab === 'OrdersTab'}
             badge={0}
             onPress={() => {
-              this.props.setState({
-                selectedTab: 'OrdersTab',
-                content: 'Orders'
-              });
+              this.props.setRenderContent('Orders');
+              this.props.setBottomNav('OrdersTab');
             }}
             data-seed="logId"
           >
-            {/* {this.renderContent(this.props.state.content)} */}
           </TabBar.Item>
           <TabBar.Item
             icon={
@@ -42,14 +39,11 @@ export default class BottomNav extends Component {
             // badge={'new'}
             selected={this.props.state.selectedTab === 'ParkFetchTab'}
             onPress={() => {
-              this.props.setState({
-                selectedTab: 'ParkFetchTab',
-                content: 'Park/Fetch'
-              });
+              this.props.setRenderContent('Park/Fetch');
+              this.props.setBottomNav('ParkFetchTab');
             }}
             data-seed="logId1"
           >
-            {/* {this.renderContent('Park/Fetch')} */}
           </TabBar.Item>
           <TabBar.Item
             icon={
@@ -63,13 +57,10 @@ export default class BottomNav extends Component {
             // dot
             selected={this.props.state.selectedTab === 'HistoryTab'}
             onPress={() => {
-              this.props.setState({
-                selectedTab: 'HistoryTab',
-                content: 'History'
-              });
+              this.props.setRenderContent('History');
+              this.props.setBottomNav('HistoryTab');
             }}
           >
-            {/* {this.renderContent('History')} */}
           </TabBar.Item>
           <TabBar.Item
             icon={<i className="fa-icon fas fa-user"></i>}
@@ -78,13 +69,10 @@ export default class BottomNav extends Component {
             key="My Profile"
             selected={this.props.state.selectedTab === 'MyProfileTab'}
             onPress={() => {
-              this.props.setState({
-                selectedTab: 'MyProfileTab',
-                content: 'My Profile'
-              });
+              this.props.setRenderContent('My Profile');
+              this.props.setBottomNav('MyProfileTab');
             }}
           >
-            {/* {this.renderContent('My Profile')} */}
           </TabBar.Item>
         </TabBar>
       </div>
