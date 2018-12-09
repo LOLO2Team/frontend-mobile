@@ -10,7 +10,6 @@ class ParkingLotList extends Component {
           return <ParkingLot 
             parkingLot={parkingLot} 
             setRenderContent={this.props.setRenderContent} 
-            setParkingLot={this.props.setParkingLot} 
           />
         })}
       </div>
@@ -22,13 +21,4 @@ const mapStateToProps = state => ({
   parkingLots: state.parkingLots
 });
 
-const mapDispatchToProps = dispatch => ({
-  getParkingLots: () => {
-    dispatch({
-      type: "GET_PARKING_LOTS",
-      payload: ''
-    })
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ParkingLotList);
+export default connect(mapStateToProps)(ParkingLotList);

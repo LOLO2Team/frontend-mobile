@@ -25,10 +25,16 @@ export default (state = initialState, { type, payload }) => {
       }
 
     case "SET_PARKING_ORDER":
-    return {
-      ...state,
-      orderId: payload
-    }
+      return {
+        ...state,
+        orderId: payload
+      }
+
+    case "SET_PARKING_LOT":
+      return {
+        ...state,
+        parkingLot: payload
+      }
 
     default:
       return state
