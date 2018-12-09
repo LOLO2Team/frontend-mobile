@@ -3,12 +3,12 @@ import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 
 const Item = List.Item;
 
-export default class Order extends Component {
+export default class ParkingLot extends Component {
 
     render() {
         return (
             <div>
-                <Item onClick={(param) => this.props.onClick(param) } extra={'details+'}>Parking Order</Item>
+                <Item onClick={this.props.onClick} extra={'details+'}>Parking Lot</Item>
             </div>
         )
     }

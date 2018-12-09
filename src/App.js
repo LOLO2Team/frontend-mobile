@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import OrderList from './components/OrderList';
+import ParkingLotList from './components/ParkingLotList';
 import OrderDetails from './components/OrderDetails';
 import HeaderBar from './components/HeaderBar';
 import BottomNav from './components/BottomNav';
@@ -33,9 +34,9 @@ class App extends Component {
       case "Orders":
         return (<OrderList onClick={this.setRenderContent} />);
       
-      case "Park/Fetch":
-        // return (<Park />);
-        return null;
+      case "Park":
+        return (<ParkingLotList onClick={this.setRenderContent}/>);
+        // return null;
 
       case "History":
         // return (<History />);
@@ -46,7 +47,7 @@ class App extends Component {
         return null;
 
       case "Order Details":
-        return (<OrderDetails id={id} />);
+        return (<OrderDetails onClick={this.setRenderContent} />);
 
       default:
         return null;
