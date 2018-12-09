@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import Order from './Order'
 
-export default class OrderList extends Component {
-  state = {
-    orders: [{ orderId: 1, carId: "car1" },
-    { orderId: 2, carId: "car2" },
-    { orderId: 3, carId: "car3" }]
-  }
-  
+class OrderList extends Component {
   render() {
     return (
       <div>
-        {this.state.orders.map((order) =>
+        {this.props.parkingOrders.map((order) =>
           <Order order={order} setRenderContent={this.props.setRenderContent} setParkingOrder={this.props.setParkingOrder} 
         />)}
-
-        {/* <Order onClick={() => this.props.onClick("Order Details", 1)} /> */}
-        
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  parkingOrders: state.parkingOrders
+});
+
+const mapDispatchToProps = dispatch => ({
+  getParkingOrders: () => {
+    dispatch({
+      type: "GET_PARKING_ORDERS",
+      payload: ''
+    })
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderList);

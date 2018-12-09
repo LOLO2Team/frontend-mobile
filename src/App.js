@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import './App.css';
 // import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import OrderList from './components/OrderList';
@@ -99,4 +100,41 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  selectedTab: state.selectedTab,
+  content: state.content,
+  orderId: state.orderId,
+  parkingOrder: state.parkingOrder,
+  parkingLot: state.parkingLot
+});
+
+const mapDispatchToProps = dispatch => ({
+  setRenderContent: (newContent, id=0) => {
+    this.setState({
+      content: newContent,
+      orderId: id
+    });
+  },
+
+  setParkingOrder: (newParkingOrder) => {
+    this.setState({
+      parkingOrder: newParkingOrder,
+      orderId: newParkingOrder.orderId
+    });
+  },
+
+  setParkingLot: (newParkingLot) => {
+    this.setState({
+      parkingLot: newParkingLot
+    });
+  },
+
+  setBottomNav: (navItem) => {
+    this.setState({
+      selectedTab: navItem
+    });
+  }
+})
+
 export default App;
+// export default connect(mapStateToProps)(App);
