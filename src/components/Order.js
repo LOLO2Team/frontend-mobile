@@ -8,7 +8,7 @@ export default class Order extends Component {
     render() {
         return (
             <div>
-                <Item onClick={(param) => this.props.onClick(param) } extra={'details+'}>Parking Order</Item>
+                <Item onClick={(name,id) => this.props.onClick(name,id) } extra={'details+'}>Parking Order {this.props.order.id}</Item>
             </div>
         )
     }

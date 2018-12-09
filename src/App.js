@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import OrderList from './components/OrderList';
-import ParkingLotList from './components/ParkingLotList';
 import OrderDetails from './components/OrderDetails';
+import ParkingLotList from './components/ParkingLotList';
+import ParkCar from './components/ParkCar';
 import HeaderBar from './components/HeaderBar';
 import BottomNav from './components/BottomNav';
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -50,7 +51,10 @@ class App extends Component {
         return null;
 
       case "Order Details":
-        return (<OrderDetails setRenderContent={this.setRenderContent} setBottomNav={this.setBottomNav}/>);
+        return (<OrderDetails setRenderContent={this.setRenderContent} setBottomNav={this.setBottomNav} orderId={this.state.orderId}/>);
+
+      case "Park Car":
+        return (<ParkCar setRenderContent={this.setRenderContent} setBottomNav={this.setBottomNav}/>)
 
       default:
         return null;
