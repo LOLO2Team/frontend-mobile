@@ -1,18 +1,32 @@
 const initialState = {
-  parkingOrders: [{ orderId: 1, carId: "car1" },
-  { orderId: 2, carId: "car2" },
-  { orderId: 3, carId: "car3" }]
+  parkingOrders: [
+    { orderId: 1, carId: "car1" },
+    { orderId: 2, carId: "car2" },
+    { orderId: 3, carId: "car3" }
+  ],
+  parkingLots: [
+    {lotId: 1, lotName: "Sheung Wan Parking Lot"},
+    {lotId: 2, lotName: "Central Parking Lot"},
+    {lotId: 3, lotName: "HH Parking Lot"},
+  ],
+  content: "Orders"
 }
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
 
-  case "GET_PARKING_ORDERS":
-    return { 
+    case "SET_RENDER_CONTENT":
+      return { 
+        ...state,
+        content: payload
+      }
+
+    case "GET_PARKING_LOTS":
+    return {
       ...state
     }
 
-  default:
-    return state
+    default:
+      return state
   }
 }

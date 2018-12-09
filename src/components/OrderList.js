@@ -18,13 +18,4 @@ const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders
 });
 
-const mapDispatchToProps = dispatch => ({
-  getParkingOrders: () => {
-    dispatch({
-      type: "GET_PARKING_ORDERS",
-      payload: ''
-    })
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderList);
+export default connect(mapStateToProps, null)(OrderList);

@@ -4,7 +4,7 @@ import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 
 const Item = List.Item;
 
-export default class Order extends Component {
+class Order extends Component {
   orderClicked = () => {
     this.props.setRenderContent("Order Details", this.props.order.id);
     this.props.setParkingOrder(this.props.order);
@@ -21,3 +21,18 @@ export default class Order extends Component {
     )
   }
 }
+
+// const mapStateToProps = state => ({
+//   parkingOrders: state.parkingOrders
+// });
+
+const mapDispatchToProps = dispatch => ({
+  goToOrderDetails: () => {
+    dispatch({
+      type: "SET_RENDER_CONTENT",
+      payload: "Order Details"
+    })
+  }
+});
+
+export default connect(null, mapDispatchToProps)(Order);
