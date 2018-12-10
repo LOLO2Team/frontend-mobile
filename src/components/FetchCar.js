@@ -43,7 +43,7 @@ class FetchCar extends Component {
                     <List renderHeader={() => 'Select Parking Lot'} className="confirm-order-list">
                         <Item extra={order.orderId}>Order ID</Item>
                         <Item extra={order.vehicleNumber}>Car ID</Item>
-                        <Item extra={"Parking Lot"}>Parking Lot</Item>
+                        <Item extra={this.props.parkingLots[order.parkingLotId].label}>Parking Lot</Item>
                     </List>
 
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
@@ -63,7 +63,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    // getInitData: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+    // getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders?status=parked", {
     //     //getInitData: fetch("http://localhost:8081/orders", 
     //       headers: new Headers({
     //           'Content-Type': 'application/json'

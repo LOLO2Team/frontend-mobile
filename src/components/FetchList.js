@@ -20,8 +20,8 @@ class FetchList extends Component {
       }
     ]
   }
-
   render() {
+    const dummy =  this.props.getInitData;
     const checkNoFetchings = () => {
       if (this.props.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
         return <div>Your fetching list is empty now!</div>
@@ -30,7 +30,7 @@ class FetchList extends Component {
     return (
       <div>
         {/* need to change state */}
-        {this.state.parkingOrders
+        {this.props.parkingOrders
           .filter((order) => order.orderStatus === "fetching")
           .map((order) =>
             <div className="fetch-now">
@@ -49,9 +49,39 @@ class FetchList extends Component {
     )
   }
 }
-
+const mapDispatchToProps = dispatch => ({
+  //getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders?status=parked", {
+    getInitData: fetch("http://localhost:8081/orders?status=parked", {
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        mode: 'cors', 
+        method: 'GET'    
+      })
+      .then(res => res.json())
+      .then(res => {
+          dispatch({
+              type: "GET_ORDERS",
+              payload: res
+          })
+      })
+      .then(fetch("http://localhost:8081/orders?status=fetching", {
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        mode: 'cors', 
+        method: 'GET'    
+      })
+      .then(res => res.json())
+      .then(res => {
+          dispatch({
+              type: "GET_FETCHING_ORDERS",
+              payload: res
+          })
+      }))
+});
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders
 });
 
-export default connect(mapStateToProps)(FetchList);
+export default connect(mapStateToProps,mapDispatchToProps)(FetchList);
