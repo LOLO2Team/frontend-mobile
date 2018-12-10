@@ -6,6 +6,7 @@ import OrderList from './components/OrderList';
 import FetchList from './components/FetchList';
 import OrderDetails from './components/OrderDetails';
 import ParkCar from './components/ParkCar';
+import FetchCar from './components/FetchCar';
 import HeaderBar from './components/HeaderBar';
 import BottomNav from './components/BottomNav';
 import ParkList from './components/ParkList';
@@ -50,6 +51,9 @@ class App extends Component {
 
       case "ParkCar":
         return (<ParkCar />)
+      
+      case "FetchCar":
+        return (<FetchCar />)
 
       default:
         return null;

@@ -18,6 +18,8 @@ class Order extends Component {
                 break;
 
             case "Fetch":
+            this.props.goToFetchCar();
+            this.props.setParkingOrder(this.props.order.orderId);
                 break;
             
             default:
@@ -63,6 +65,12 @@ const mapDispatchToProps = dispatch => ({
         dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "ParkCar"
+        });
+    },
+    goToFetchCar: () =>{
+        dispatch({
+            type: "SET_RENDER_CONTENT",
+            payload: "FetchCar"
         });
     }
 });
