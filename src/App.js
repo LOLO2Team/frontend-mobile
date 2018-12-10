@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import './App.css';
 // import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import OrderList from './components/OrderList';
+import FetchList from './components/FetchList';
 import OrderDetails from './components/OrderDetails';
 import ParkCar from './components/ParkCar';
 import HeaderBar from './components/HeaderBar';
@@ -33,8 +34,8 @@ class App extends Component {
         return (<ParkList />);
       
       case "FetchList":
-        // return (<FetchList />);
-        return null;
+        return (<FetchList />);
+        // return null;
 
       case "History":
       return (<ParkList />);

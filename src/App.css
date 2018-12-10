@@ -56,6 +56,12 @@
   margin-bottom: 30px;
 }
 
-/* Button.info {
-  background-color: #5bc0de;
-} */
+.fetch-now {
+  border-left: 10px solid #d32f2f;
+}
+
+.fetch-now-icon{
+  color: #d32f2f;
+  margin-right:20px;
+  font-size: 30px !important
+}

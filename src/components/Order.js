@@ -13,6 +13,7 @@ class Order extends Component {
     render() {
         return (
             <div class="order">
+            
                 <Item onClick={this.orderClicked} className="order-item" >
                     <i class="car-icon fas fa-car"></i>
                     <div class="order-desc">
