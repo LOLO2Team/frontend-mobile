@@ -31,10 +31,10 @@ class BottomNav extends Component {
           </TabBar.Item>
           <TabBar.Item
             icon={
-              <i className="fa-icon fas fa-car"></i>
+              <i class="fa-icon fas fa-parking"></i>
             }
             selectedIcon={
-              <i className="fa-icon fas fa-car"></i>
+              <i class="fa-icon fas fa-parking"></i>
             }
             title="Park"
             key="Park"
@@ -43,6 +43,24 @@ class BottomNav extends Component {
             onPress={() => {
               this.props.setRenderContent('Park');
               this.props.setBottomNav('ParkTab');
+            }}
+            data-seed="logId1"
+          >
+          </TabBar.Item>
+          <TabBar.Item
+            icon={
+              <i className="fa-icon fas fa-car"></i>
+            }
+            selectedIcon={
+              <i className="fa-icon fas fa-car"></i>
+            }
+            title="Fetch"
+            key="Fetch"
+            // badge={'new'}
+            selected={this.props.selectedTab === 'FetchTab'}
+            onPress={() => {
+              this.props.setRenderContent('Fetch');
+              this.props.setBottomNav('FetchTab');
             }}
             data-seed="logId1"
           >
