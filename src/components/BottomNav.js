@@ -35,13 +35,13 @@ export default class BottomNav extends Component {
             selectedIcon={
               <i className="fa-icon fas fa-car"></i>
             }
-            title="Park/Fetch"
-            key="Park/Fetch"
+            title="Park"
+            key="Park"
             // badge={'new'}
-            selected={this.props.selectedTab === 'ParkFetchTab'}
+            selected={this.props.selectedTab === 'ParkTab'}
             onPress={() => {
-              this.props.setRenderContent('Park/Fetch');
-              this.props.setBottomNav('ParkFetchTab');
+              this.props.setRenderContent('Park');
+              this.props.setBottomNav('ParkTab');
             }}
             data-seed="logId1"
           >

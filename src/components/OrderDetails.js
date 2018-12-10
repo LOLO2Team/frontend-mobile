@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Layout, Menu, Icon } from 'antd';
+import { Layout } from 'antd';
+import { Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
 const { Header, Sider, Content } = Layout;
+const Item = List.Item;
 
 class OrderDetails extends Component {
   // state = {
   //   order: {
   //     orderId: this.props.orderId,
-  //     carId: "car 1"
+  //     vehicleNumber: "car 1"
   //   }
   // }
   getOrder = (orderId) => {
@@ -17,8 +19,8 @@ class OrderDetails extends Component {
   }
 
   onClickPark = () => {
-    this.props.setRenderContent("Park/Fetch");
-    this.props.setBottomNav("ParkFetchTab");
+    this.props.setRenderContent("Park");
+    this.props.setBottomNav("ParkTab");
   }
 
   onClickCancel = () => {
@@ -32,10 +34,12 @@ class OrderDetails extends Component {
           margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
         }}
         >
-          <p>Order ID: <span>{order.orderId}</span></p>
-          <p>Car ID: <span>{order.carId}</span></p>
-          <button onClick={this.onClickPark}>Confirm Order</button>
-          <button onClick={this.onClickCancel}>Cancel</button>
+          <List renderHeader={() => 'Confirm Order'} className="confirm-order-list">
+            <Item extra={order.orderId}>Order ID</Item>
+            <Item extra={order.vehicleNumber}>Car ID</Item>
+          </List>
+          <Button type="primary" onClick={this.onClickPark}>Confirm Order</Button><WhiteSpace />
+          <Button type="primary" onClick={this.onClickCancel}>Cancel</Button><WhiteSpace />
         </Content>
       </div>
     )

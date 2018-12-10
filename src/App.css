@@ -40,3 +40,18 @@
 .order-item {
   border-bottom: 1px lightblue solid;
 }
+
+.order .car-icon{
+  display: inline-block;
+  font-size: 40px;
+  margin: 10px 0px;
+  margin-right: 20px;
+}
+
+.order-desc{
+  display: inline-block;
+}
+
+.confirm-order-list{
+  margin-bottom: 30px;
+}

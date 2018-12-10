@@ -55,8 +55,12 @@ class App extends Component {
       case "Orders":
         return (<OrderList setRenderContent={this.setRenderContent} />);
       
-      case "Park/Fetch":
-        return (<ParkingLotList setRenderContent={this.setRenderContent} />);
+      case "Park":
+        return (<ParkCar setRenderContent={this.setRenderContent} />);
+      
+      case "Fetch":
+        // return (<ParkingLotList setRenderContent={this.setRenderContent} />);
+        return null;
 
       case "History":
         // return (<History />);
