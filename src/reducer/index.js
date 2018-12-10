@@ -36,6 +36,13 @@ export default (state = initialState, { type, payload }) => {
         parkingLot: payload
       }
 
+    case "GET_ORDERS":{
+      return{
+        ...state,
+        parkingOrders: payload
+      }
+    }
+
     default:
       return state
   }

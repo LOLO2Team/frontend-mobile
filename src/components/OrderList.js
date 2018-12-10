@@ -18,4 +18,19 @@ const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders
 });
 
-export default connect(mapStateToProps, null)(OrderList);
+const mapDispatchToProps = dispatch => ({
+  getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders", {
+  //getInitData: fetch("http://localhost:8081/orders", {
+    mode: 'cors', 
+    method: 'GET'    
+  })
+  .then(res => res.json())
+  .then(res => {
+     dispatch({
+     type: "GET_ORDERS",
+     payload: res
+     })
+  })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderList);
