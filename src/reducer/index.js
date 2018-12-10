@@ -11,7 +11,7 @@ const initialState = {
     {lotId: 2, lotName: "HH Parking Lot"}
   ],
   orderId: 0,
-  parkingLot: "Sheung Wan Parking Lot",
+  parkingLotId: 0,
   content: "Orders",
   selectedTab: "OrdersTab"
 }
@@ -37,10 +37,10 @@ export default (state = initialState, { type, payload }) => {
         orderId: payload
       }
 
-    case "SET_PARKING_LOT":
+    case "SET_PARKING_LOT_ID":
       return {
         ...state,
-        parkingLot: payload
+        parkingLotId: payload
       }
 
     case "GET_ORDERS":{

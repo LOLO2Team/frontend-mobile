@@ -22,18 +22,11 @@ const parkingLotList = [
 
 
 class ParkCar extends Component {
-    state = {
-        value: [0],
-    };
     onChangeParkingLot = (value) => {
-        this.setState({
-            value,
-        });
+        this.props.setParkingLotId(value)
     }
     onScrollChangeParkingLot = (value) => {
-        this.setState({
-            value,
-        });
+        this.props.setParkingLotId(value)
     }
 
     getOrder = (orderId) => {
@@ -43,7 +36,6 @@ class ParkCar extends Component {
     }
 
     onClickPark = () => {
-        
         this.props.goToFetchList();
         // add parking lot to order item
     }
@@ -66,12 +58,12 @@ class ParkCar extends Component {
                     <PickerView
                         onChange={this.onChangeParkingLot}
                         onScrollChange={this.onScrollChangeParkingLot}
-                        value={this.state.value}
+                        value={this.props.parkingLotId}
                         data={parkingLotList}
                         cascade={false}
                     />
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={() => this.props.goToFetchList(order,this.state.value[0])}>Finished Parking</Button><WhiteSpace />
+                    <Button type="primary" onClick={() => this.props.goToFetchList(order,this.props.parkingLotId)}>Finished Parking</Button><WhiteSpace />
                     <Button type="primary" onClick={this.props.goToParkList}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
@@ -82,10 +74,16 @@ class ParkCar extends Component {
 const mapStateToProps = state => ({
     parkingOrders: state.parkingOrders,
     orderId: state.orderId,
-    parkingLot: state.parkingLot
+    parkingLotId: state.parkingLotId
 });
 
 const mapDispatchToProps = dispatch => ({
+    setParkingLotId: (id) => {
+        dispatch({
+            type:"SET_PARKING_LOT_ID",
+            payload: id
+        })
+    },
     goToParkList: () => {
       dispatch({
         type: "SET_RENDER_CONTENT",
