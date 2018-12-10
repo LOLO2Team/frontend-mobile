@@ -1,41 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { Layout } from 'antd';
 import { Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
 const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 
-export default class FetchCar extends Component {
-    state = {
-        parkingOrders: [
-            {
-              orderId: 0,
-              vehicleNumber: "sdf",
-              orderStatus: "parked"
-            },
-            {
-              orderId: 1,
-              vehicleNumber: "abc",
-              orderStatus: "fetching"
-            }
-        ],
-        orderId: 1
-    }
+class FetchCar extends Component {
+    // state = {
+    //     parkingOrders: [
+    //         {
+    //           orderId: 0,
+    //           vehicleNumber: "sdf",
+    //           orderStatus: "parked"
+    //         },
+    //         {
+    //           orderId: 1,
+    //           vehicleNumber: "abc",
+    //           orderStatus: "fetching"
+    //         }
+    //     ],
+    //     orderId: 1
+    // }
     getOrder = (orderId) => {
-        // state here
-        return this.state.parkingOrders.find(
+        return this.props.parkingOrders.find(
           (order) => order.orderId === orderId
         );
     }
-    onClickPark = () => {
-        this.props.goToFetchList();
-        // add parking lot to order item
+    onClickFetch = () => {
+        return;
     }
     onClickCancel = () => {
-        this.props.goToParkList();
+        return;
     }
     render() {
-        // state here
-        const order = this.getOrder(this.state.orderId);
+        const order = this.getOrder(this.props.orderId);
         return (
             <div>
                 <Content style={{
@@ -43,16 +41,78 @@ export default class FetchCar extends Component {
                 }}
                 >
                     <List renderHeader={() => 'Select Parking Lot'} className="confirm-order-list">
-                        <Item extra={"Order ID"}>Order ID</Item>
-                        <Item extra={"Car ID"}>Car ID</Item>
+                        <Item extra={order.orderId}>Order ID</Item>
+                        <Item extra={order.vehicleNumber}>Car ID</Item>
                         <Item extra={"Parking Lot"}>Parking Lot</Item>
                     </List>
 
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={() => this.props.goToFetchList(order, this.state.value[0])}>Fetch Car</Button><WhiteSpace />
-                    <Button type="primary" onClick={this.props.goToParkList}>Cancel</Button><WhiteSpace />
+                    <Button type="primary" onClick={this.onClickFetch}>Fetch Car</Button><WhiteSpace />
+                    <Button type="primary" onClick={this.onClickCancel}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    parkingOrders: state.parkingOrders,
+    orderId: state.orderId,
+    parkingLotId: state.parkingLotId,
+    parkingLots: state.parkingLots
+});
+
+const mapDispatchToProps = dispatch => ({
+    // getInitData: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+    //     //getInitData: fetch("http://localhost:8081/orders", 
+    //       headers: new Headers({
+    //           'Content-Type': 'application/json'
+    //       }),
+    //       mode: 'cors', 
+    //       method: 'GET'    
+    //     })
+    //     .then(res => res.json())
+    //     .then(res => {
+    //         dispatch({
+    //             type: "SET_PARKING_LOTS",
+    //             payload: res
+    //         })
+    //     }),
+
+    // setParkingLotId: (id) => {
+    //     dispatch({
+    //         type:"SET_PARKING_LOT_ID",
+    //         payload: id
+    //     })
+    // },
+    //using
+    // goToParkList: () => {
+    //   dispatch({
+    //     type: "SET_RENDER_CONTENT",
+    //     payload: "ParkList"
+    //   });
+    //   dispatch({
+    //       type: "SET_BOTTOM_NAV",
+    //       payload: "ParkTab"
+    //   })
+    // },
+    // // using
+    // goToFetchList: (order, parkingLotId) => {
+    //     console.log(parkingLotId)
+    //     fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/"+  parkingLotId,{
+    //         mode: 'cors',
+    //         method: 'PUT', 
+    //         headers: new Headers({ 'Content-Type': 'application/json'})
+    //     })
+    //     dispatch({
+    //       type: "SET_RENDER_CONTENT",
+    //       payload: "FetchList"
+    //     });
+    //     dispatch({
+    //         type: "SET_BOTTOM_NAV",
+    //         payload: "FetchTab"
+    //     })
+    // }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FetchCar);

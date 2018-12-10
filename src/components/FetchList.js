@@ -5,7 +5,7 @@ import Order from './Order'
 
 const Item = List.Item;
 
-export default class FetchList extends Component {
+class FetchList extends Component {
   state = {
     parkingOrders: [
       {
@@ -14,7 +14,7 @@ export default class FetchList extends Component {
         orderStatus: "parked"
       },
       {
-        orderId: 1,
+        orderId: 99103,
         vehicleNumber: "abc",
         orderStatus: "fetching"
       }
@@ -23,13 +23,13 @@ export default class FetchList extends Component {
 
   render() {
     const checkNoFetchings = () => {
-      // if (this.props.parkingOrders.filter((order) => order.orderStatus === "parked").length === 0) {
-      if (this.state.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
+      if (this.props.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
         return <div>Your fetching list is empty now!</div>
       }
     }
     return (
       <div>
+        {/* need to change state */}
         {this.state.parkingOrders
           .filter((order) => order.orderStatus === "fetching")
           .map((order) =>
@@ -37,24 +37,21 @@ export default class FetchList extends Component {
               <Order order={order} type="Fetch" />
             </div>
           )}
-          {this.state.parkingOrders
+          {this.props.parkingOrders
           .filter((order) => order.orderStatus === "parked")
           .map((order) =>
             <div className="parked">
               <Order order={order} />
             </div>
           )}
-        {checkNoFetchings}
-
-        {/* <Item className="fetch-now" >
-                    <i class="fa-icon fetch-now-icon fas fa-exclamation"></i>
-                    <i class="car-icon fas fa-car"></i>
-                    <div class="order-desc">
-                        <div>Order ID </div>
-                        <div></div>
-                    </div>
-                </Item> */}
+        {checkNoFetchings()}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  parkingOrders: state.parkingOrders
+});
+
+export default connect(mapStateToProps)(FetchList);
