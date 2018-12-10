@@ -7,7 +7,7 @@ class OrderList extends Component {
     return (
       <div>
         {this.props.parkingOrders.map((order) =>
-          <Order order={order} setRenderContent={this.props.setRenderContent} 
+          <Order order={order}
         />)}
       </div>
     )

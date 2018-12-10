@@ -19,12 +19,12 @@ class OrderDetails extends Component {
   }
 
   onClickPark = () => {
-    this.props.setRenderContent("Park");
+    this.props.goToPark();
     this.props.setBottomNav("ParkTab");
   }
 
   onClickCancel = () => {
-    this.props.setRenderContent("Orders");
+    this.props.goToOrders();
   }
   render() {
     const order = this.getOrder(this.props.orderId);
@@ -51,4 +51,19 @@ const mapStateToProps = state => ({
   orderId: state.orderId
 });
 
-export default connect(mapStateToProps, null)(OrderDetails);
+const mapDispatchToProps = dispatch => ({
+  goToPark: () => {
+    dispatch({
+      type: "SET_RENDER_CONTENT",
+      payload: "Park"
+    });
+  },
+  goToOrders: () => {
+    dispatch({
+      type: "SET_RENDER_CONTENT",
+      payload: "Orders"
+    });
+  } 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderDetails);

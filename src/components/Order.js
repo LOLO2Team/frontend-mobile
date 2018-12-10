@@ -6,7 +6,7 @@ const Item = List.Item;
 
 class Order extends Component {
     orderClicked = () => {
-        this.props.setRenderContent("Order Details", this.props.order.id);
+        this.props.goToOrderDetails();
         this.props.setParkingOrder(this.props.order.orderId);
     }
 
