@@ -5,7 +5,7 @@ import Order from './Order';
 class ParkList extends Component {
   render() {
     const checkNoParkings = () => {
-      if (this.props.parkingOrders.filter((order) => order.orderStatus === "parking").length == 0) {
+      if (this.props.parkingOrders.filter((order) => order.orderStatus === "parking").length === 0) {
         return <div>Your parking list is empty now!</div>
       }
     }

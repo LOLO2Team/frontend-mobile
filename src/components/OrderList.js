@@ -11,7 +11,7 @@ class OrderList extends Component {
 
   render() {
     const checkNoOrders = () => {
-      if (this.props.parkingOrders.length == 0) {
+      if (this.props.parkingOrders.length === 0) {
         return <div>Your order list is empty now!</div>
       }
     }

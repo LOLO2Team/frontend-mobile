@@ -26,9 +26,15 @@ class Order extends Component {
     }
 
     render() {
+        const printFetchMark = () => {
+            if (this.props.type === "Fetch") {
+                return <i className="fa-icon fetch-now-icon fas fa-exclamation"></i>;
+            }
+        }
         return (
             <div class="order">
                 <Item onClick={this.orderClicked} className="order-item" >
+                    {printFetchMark()}
                     <i class="car-icon fas fa-car"></i>
                     <div class="order-desc">
                         <div>Order ID {this.props.order.orderId}</div>
