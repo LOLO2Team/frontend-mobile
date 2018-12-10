@@ -9,8 +9,7 @@ class ParkList extends Component {
         {this.props.parkingOrders
           .filter((order) => order.orderStatus === "parking")
           .map((order) =>
-          <Order order={order} setRenderContent={this.props.setRenderContent} 
-        />)}
+          <Order order={order} />)}
       </div>
     )
   }

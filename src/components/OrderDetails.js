@@ -6,26 +6,12 @@ const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 
 class OrderDetails extends Component {
-  // state = {
-  //   order: {
-  //     orderId: this.props.orderId,
-  //     vehicleNumber: "car 1"
-  //   }
-  // }
   getOrder = (orderId) => {
     return this.props.parkingOrders.find(
       (order) => order.orderId === orderId
     );
   }
-
-  onClickPark = () => {
-    this.props.goToPark();
-    this.props.setBottomNav("ParkTab");
-  }
-
-  onClickCancel = () => {
-    this.props.goToOrders();
-  }
+  
   render() {
     const order = this.getOrder(this.props.orderId);
     return (
@@ -38,8 +24,8 @@ class OrderDetails extends Component {
             <Item extra={order.orderId}>Order ID</Item>
             <Item extra={order.vehicleNumber}>Car ID</Item>
           </List>
-          <Button type="primary" onClick={this.onClickPark}>Confirm Order</Button><WhiteSpace />
-          <Button type="primary" onClick={this.onClickCancel}>Cancel</Button><WhiteSpace />
+          <Button type="primary" onClick={this.props.goToPark}>Confirm Order</Button><WhiteSpace />
+          <Button type="primary" onClick={this.props.goToOrders}>Cancel</Button><WhiteSpace />
         </Content>
       </div>
     )
@@ -56,6 +42,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: "SET_RENDER_CONTENT",
       payload: "Park"
+    });
+    dispatch({
+      type: "SET_BOTTOM_NAV",
+      payload: "ParkTab"
     });
   },
   goToOrders: () => {
