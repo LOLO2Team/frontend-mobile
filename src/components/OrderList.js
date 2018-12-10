@@ -18,7 +18,7 @@ class OrderList extends Component {
     return (
       <div>
         {this.props.parkingOrders.map((order) =>
-          <Order order={order} />)}
+          <Order order={order} type="Orders" />)}
 
           {checkNoOrders()}
       </div>

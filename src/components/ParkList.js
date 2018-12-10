@@ -14,7 +14,7 @@ class ParkList extends Component {
         {this.props.parkingOrders
           .filter((order) => order.orderStatus === "parking")
           .map((order) =>
-          <Order order={order} />)}
+          <Order order={order} type="Park" />)}
 
         {checkNoParkings()}
       </div>

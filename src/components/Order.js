@@ -6,14 +6,28 @@ const Item = List.Item;
 
 class Order extends Component {
     orderClicked = () => {
-        this.props.goToOrderDetails();
-        this.props.setParkingOrder(this.props.order.orderId);
+        switch(this.props.type) {
+            case "Orders":
+                this.props.goToOrderDetails();
+                this.props.setParkingOrder(this.props.order.orderId);
+                break;
+            
+            case "Park":
+                this.props.goToParkCar();
+                this.props.setParkingOrder(this.props.order.orderId);
+                break;
+
+            case "Fetch":
+                break;
+            
+            default:
+                return;
+        }
     }
 
     render() {
         return (
             <div class="order">
-            
                 <Item onClick={this.orderClicked} className="order-item" >
                     <i class="car-icon fas fa-car"></i>
                     <div class="order-desc">
@@ -25,10 +39,6 @@ class Order extends Component {
         )
     }
 }
-
-// const mapStateToProps = state => ({
-//   parkingOrders: state.parkingOrders
-// });
 
 const mapDispatchToProps = dispatch => ({
     setParkingOrder: (orderId) => {
@@ -42,8 +52,13 @@ const mapDispatchToProps = dispatch => ({
             type: "SET_RENDER_CONTENT",
             payload: "OrderDetails"
         });
+    },
+    goToParkCar: () => {
+        dispatch({
+            type: "SET_RENDER_CONTENT",
+            payload: "ParkCar"
+        });
     }
 });
-
 
 export default connect(null, mapDispatchToProps)(Order);
