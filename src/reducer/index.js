@@ -1,9 +1,9 @@
 const initialState = {
   parkingOrders: [
-    { orderId: 0, carId: "init" },
-    { orderId: 1, carId: "car1" },
-    { orderId: 2, carId: "car2" },
-    { orderId: 3, carId: "car3" }
+    { orderId: 0, vehicleNumber: "init", orderStatus:"pending" },
+    { orderId: 1, vehicleNumber: "car1", orderStatus:"pending" },
+    { orderId: 2, vehicleNumber: "car2", orderStatus:"pending" },
+    { orderId: 3, vehicleNumber: "car3", orderStatus:"pending" }
   ],
   parkingLots: [
     {lotId: 0, lotName: "Sheung Wan Parking Lot"},
