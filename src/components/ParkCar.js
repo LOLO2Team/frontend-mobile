@@ -45,6 +45,7 @@ class ParkCar extends Component {
 
     render() {
         const order = this.getOrder(this.props.orderId);
+        const dummy = this.props.getInitData;
         return (
             <div>
                 <Content style={{
@@ -59,7 +60,7 @@ class ParkCar extends Component {
                         onChange={this.onChangeParkingLot}
                         onScrollChange={this.onScrollChangeParkingLot}
                         value={this.props.parkingLotId}
-                        data={parkingLotList}
+                        data={this.props.parkingLots}
                         cascade={false}
                     />
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
@@ -74,10 +75,27 @@ class ParkCar extends Component {
 const mapStateToProps = state => ({
     parkingOrders: state.parkingOrders,
     orderId: state.orderId,
-    parkingLotId: state.parkingLotId
+    parkingLotId: state.parkingLotId,
+    parkingLots: state.parkingLots
 });
 
 const mapDispatchToProps = dispatch => ({
+    getInitData: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+        //getInitData: fetch("http://localhost:8081/orders", 
+          headers: new Headers({
+              'Content-Type': 'application/json'
+          }),
+          mode: 'cors', 
+          method: 'GET'    
+        })
+        .then(res => res.json())
+        .then(res => {
+            dispatch({
+                type: "SET_PARKING_LOTS",
+                payload: res
+            })
+        }),
+
     setParkingLotId: (id) => {
         dispatch({
             type:"SET_PARKING_LOT_ID",

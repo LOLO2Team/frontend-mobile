@@ -5,11 +5,7 @@ const initialState = {
     { orderId: 2, vehicleNumber: "car2", orderStatus:"pending" },
     { orderId: 3, vehicleNumber: "car3", orderStatus:"pending" }
   ],
-  parkingLots: [
-    {lotId: 0, lotName: "Sheung Wan Parking Lot"},
-    {lotId: 1, lotName: "Central Parking Lot"},
-    {lotId: 2, lotName: "HH Parking Lot"}
-  ],
+  parkingLots: [],
   orderId: 0,
   parkingLotId: 0,
   content: "Orders",
@@ -36,6 +32,17 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         orderId: payload
       }
+
+    case "SET_PARKING_LOTS":{
+      return{
+        ...state,
+        parkingLots: payload.map((lot,index)=> {return {
+          label: lot.parkingLotName,
+          value: index,
+          id: lot.parkingLotId
+        }})
+      }
+    }
 
     case "SET_PARKING_LOT_ID":
       return {
