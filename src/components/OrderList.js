@@ -19,8 +19,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders", {
-  //getInitData: fetch("http://localhost:8081/orders", {
+  getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders?status=pending", {
+  //getInitData: fetch("http://localhost:8081/orders", 
+    headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
     mode: 'cors', 
     method: 'GET'    
   })
