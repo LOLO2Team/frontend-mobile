@@ -24,7 +24,7 @@ class OrderDetails extends Component {
             <Item extra={order.orderId}>Order ID</Item>
             <Item extra={order.vehicleNumber}>Car ID</Item>
           </List>
-          <Button type="primary" onClick={this.props.goToPark}>Confirm Order</Button><WhiteSpace />
+          <Button type="primary" onClick={() => this.props.goToPark(order)}>Confirm Order</Button><WhiteSpace />
           <Button type="primary" onClick={this.props.goToOrders}>Cancel</Button><WhiteSpace />
         </Content>
       </div>
@@ -38,7 +38,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  goToPark: () => {
+  goToPark: (order) => {
+    fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/0",{
+      mode: 'cors',
+      method: 'PUT', 
+      body: JSON.stringify({
+        "content": order.orderId,
+        "vehicleNumber": order.vehicleNumber,
+        "orderStatus": "parking",
+        "employeeId": 0
+      }),
+      headers: new Headers({ 'Content-Type': 'application/json'})
+    })
     dispatch({
       type: "SET_RENDER_CONTENT",
       payload: "ParkCar"

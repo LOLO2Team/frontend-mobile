@@ -23,16 +23,17 @@ const parkingLotList = [
 
 class ParkCar extends Component {
     state = {
-        value: parkingLotList[0].value,
+        value: [0],
     };
     onChangeParkingLot = (value) => {
-        console.log(value);
         this.setState({
             value,
         });
     }
     onScrollChangeParkingLot = (value) => {
-        console.log(value);
+        this.setState({
+            value,
+        });
     }
 
     getOrder = (orderId) => {
@@ -42,6 +43,7 @@ class ParkCar extends Component {
     }
 
     onClickPark = () => {
+        
         this.props.goToFetchList();
         // add parking lot to order item
     }
@@ -69,7 +71,7 @@ class ParkCar extends Component {
                         cascade={false}
                     />
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={this.props.goToFetchList}>Finished Parking</Button><WhiteSpace />
+                    <Button type="primary" onClick={() => this.props.goToFetchList(order,this.state.value[0])}>Finished Parking</Button><WhiteSpace />
                     <Button type="primary" onClick={this.props.goToParkList}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
@@ -94,7 +96,13 @@ const mapDispatchToProps = dispatch => ({
           payload: "ParkTab"
       })
     },
-    goToFetchList: () => {
+    goToFetchList: (order, parkingLotId) => {
+        console.log(parkingLotId)
+        fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/"+  parkingLotId,{
+            mode: 'cors',
+            method: 'PUT', 
+            headers: new Headers({ 'Content-Type': 'application/json'})
+        })
         dispatch({
           type: "SET_RENDER_CONTENT",
           payload: "FetchList"
