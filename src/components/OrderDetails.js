@@ -39,8 +39,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   goToPark: (order) => {
-    //fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/0",{
-    fetch("http://localhost:8081/orders/" + order.orderId + "/employeeId/0",{
+    fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/0",{
+    //fetch("http://localhost:8081/orders/" + order.orderId + "/employeeId/0",{
       mode: 'cors',
       method: 'PUT', 
       body: JSON.stringify({
