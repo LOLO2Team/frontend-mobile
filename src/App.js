@@ -10,6 +10,7 @@ import FetchCar from './components/FetchCar';
 import HeaderBar from './components/HeaderBar';
 import BottomNav from './components/BottomNav';
 import ParkList from './components/ParkList';
+import History from './components/History';
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 // const Item = List.Item;
@@ -39,8 +40,8 @@ class App extends Component {
         // return null;
 
       case "History":
-      return (<ParkList />);
-        return null;
+      return (<History />);
+        // Freturn null;
 
       case "MyProfile":
         // return (<MyProfile />);
