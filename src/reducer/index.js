@@ -12,7 +12,8 @@ const initialState = {
   ],
   orderId: 0,
   parkingLot: "Sheung Wan Parking Lot",
-  content: "Orders"
+  content: "Orders",
+  selectedTab: "OrdersTab"
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -22,6 +23,12 @@ export default (state = initialState, { type, payload }) => {
       return { 
         ...state,
         content: payload
+      }
+
+    case "SET_BOTTOM_NAV":
+      return {
+        ...state,
+        selectedTab: payload
       }
 
     case "SET_PARKING_ORDER":

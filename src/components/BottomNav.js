@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { TabBar } from 'antd-mobile';
 
-export default class BottomNav extends Component {
+class BottomNav extends Component {
 
   render() {
     return (
@@ -80,3 +81,24 @@ export default class BottomNav extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  selectedTab: state.selectedTab
+});
+
+const mapDispatchToProps = dispatch => ({
+  setRenderContent: (content) => {
+    dispatch({
+      type: "SET_RENDER_CONTENT",
+      payload: content
+    });
+  },
+  setBottomNav: (tab) => {
+    dispatch({
+      type: "SET_BOTTOM_NAV",
+      payload: tab
+    })
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BottomNav);
