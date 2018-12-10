@@ -29,10 +29,10 @@ class App extends Component {
       case "Orders":
         return (<OrderList />);
       
-      case "Park":
-        return (<ParkCar />);
+      case "ParkList":
+        return (<ParkList />);
       
-      case "Fetch":
+      case "FetchList":
         // return (<FetchList />);
         return null;
 
@@ -40,14 +40,14 @@ class App extends Component {
       return (<ParkList />);
         return null;
 
-      case "My Profile":
+      case "MyProfile":
         // return (<MyProfile />);
         return null;
 
-      case "Order Details":
+      case "OrderDetails":
         return (<OrderDetails />);
 
-      case "Park Car":
+      case "ParkCar":
         return (<ParkCar />)
 
       default:

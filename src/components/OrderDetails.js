@@ -41,7 +41,7 @@ const mapDispatchToProps = dispatch => ({
   goToPark: () => {
     dispatch({
       type: "SET_RENDER_CONTENT",
-      payload: "Park"
+      payload: "ParkCar"
     });
     dispatch({
       type: "SET_BOTTOM_NAV",

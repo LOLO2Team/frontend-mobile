@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
     goToOrderDetails: () => {
         dispatch({
             type: "SET_RENDER_CONTENT",
-            payload: "Order Details"
+            payload: "OrderDetails"
         });
     }
 });

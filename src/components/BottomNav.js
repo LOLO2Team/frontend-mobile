@@ -41,7 +41,7 @@ class BottomNav extends Component {
             // badge={'new'}
             selected={this.props.selectedTab === 'ParkTab'}
             onPress={() => {
-              this.props.setRenderContent('Park');
+              this.props.setRenderContent('ParkList');
               this.props.setBottomNav('ParkTab');
             }}
             data-seed="logId1"
@@ -59,7 +59,7 @@ class BottomNav extends Component {
             // badge={'new'}
             selected={this.props.selectedTab === 'FetchTab'}
             onPress={() => {
-              this.props.setRenderContent('Fetch');
+              this.props.setRenderContent('FetchList');
               this.props.setBottomNav('FetchTab');
             }}
             data-seed="logId1"
@@ -85,8 +85,8 @@ class BottomNav extends Component {
           <TabBar.Item
             icon={<i className="fa-icon fas fa-user"></i>}
             selectedIcon={<i className="fa-icon fas fa-user"></i>}
-            title="My Profile"
-            key="My Profile"
+            title="MyProfile"
+            key="MyProfile"
             selected={this.props.selectedTab === 'MyProfileTab'}
             onPress={() => {
               this.props.setRenderContent('My Profile');
