@@ -16,54 +16,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'OrdersTab',
-      content: "Orders",
+      // selectedTab: 'OrdersTab',
+      // content: "Orders",
       orderId: 0,
       parkingOrder: null,
       parkingLot: ''
     };
   }
 
-  setRenderContent = (newContent, id=0) => {
-    this.setState({
-      content: newContent,
-      orderId: id
-    });
-  }
-
-  setParkingOrder = (newParkingOrder) => {
-    this.setState({
-      parkingOrder: newParkingOrder,
-      orderId: newParkingOrder.orderId
-    });
-  }
-
-  setParkingLot = (newParkingLot) => {
-    this.setState({
-      parkingLot: newParkingLot
-    });
-  }
-
-  setBottomNav = (navItem) => {
-    this.setState({
-      selectedTab: navItem
-    });
-  }
-
   renderContent(pageText, id=0) {
     switch(pageText) {
       case "Orders":
-        return (<OrderList setRenderContent={this.setRenderContent} />);
+        return (<OrderList />);
       
       case "Park":
-        return (<ParkCar setRenderContent={this.setRenderContent} />);
+        return (<ParkCar />);
       
       case "Fetch":
-        // return (<ParkingLotList setRenderContent={this.setRenderContent} />);
+        // return (<FetchList />);
         return null;
 
       case "History":
-      return (<ParkList setRenderContent={this.setRenderContent} />);
+      return (<ParkList />);
         return null;
 
       case "My Profile":
@@ -71,14 +45,10 @@ class App extends Component {
         return null;
 
       case "Order Details":
-        return (<OrderDetails 
-          setRenderContent={this.setRenderContent} 
-          setBottomNav={this.setBottomNav} />);
+        return (<OrderDetails />);
 
       case "Park Car":
-        return (<ParkCar 
-          setRenderContent={this.setRenderContent} 
-          setBottomNav={this.setBottomNav} />)
+        return (<ParkCar />)
 
       default:
         return null;
@@ -96,42 +66,6 @@ class App extends Component {
     );
   }
 }
-
-// const mapStateToProps = state => ({
-  // selectedTab: state.selectedTab,
-  // content: state.content,
-  // orderId: state.orderId,
-  // parkingOrder: state.parkingOrder,
-  // parkingLot: state.parkingLot
-// });
-
-// // const mapDispatchToProps = dispatch => ({
-// //   setRenderContent: (newContent, id=0) => {
-// //     this.setState({
-// //       content: newContent,
-// //       orderId: id
-// //     });
-// //   },
-
-// //   setParkingOrder: (newParkingOrder) => {
-// //     this.setState({
-// //       parkingOrder: newParkingOrder,
-// //       orderId: newParkingOrder.orderId
-// //     });
-// //   },
-
-// //   setParkingLot: (newParkingLot) => {
-// //     this.setState({
-// //       parkingLot: newParkingLot
-// //     });
-// //   },
-
-// //   setBottomNav: (navItem) => {
-// //     this.setState({
-// //       selectedTab: navItem
-// //     });
-// //   }
-// // })
 
 const mapStateToProps = state => ({
   content: state.content,
