@@ -4,7 +4,6 @@ import './App.css';
 // import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import OrderList from './components/OrderList';
 import OrderDetails from './components/OrderDetails';
-import ParkingLotList from './components/ParkingLotList';
 import ParkCar from './components/ParkCar';
 import HeaderBar from './components/HeaderBar';
 import BottomNav from './components/BottomNav';

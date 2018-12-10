@@ -42,13 +42,11 @@ class ParkCar extends Component {
     }
 
     onClickPark = () => {
-        
-        this.props.setRenderContent("FetchList")
-        this.props.setBottomNav("FetchTab")
+        this.props.goToFetchList();
         // add parking lot to order item
     }
     onClickCancel = () => {
-        this.props.setRenderContent("ParkList");
+        this.props.goToParkList();
       }
 
     render() {
@@ -71,8 +69,8 @@ class ParkCar extends Component {
                         cascade={false}
                     />
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={this.onClickPark}>Finished Parking</Button><WhiteSpace />
-                    <Button type="primary" onClick={this.onClickCancel}>Cancel</Button><WhiteSpace />
+                    <Button type="primary" onClick={this.props.goToFetchList}>Finished Parking</Button><WhiteSpace />
+                    <Button type="primary" onClick={this.props.goToParkList}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
         )
@@ -85,4 +83,27 @@ const mapStateToProps = state => ({
     parkingLot: state.parkingLot
 });
 
-export default connect(mapStateToProps, null)(ParkCar);
+const mapDispatchToProps = dispatch => ({
+    goToParkList: () => {
+      dispatch({
+        type: "SET_RENDER_CONTENT",
+        payload: "ParkList"
+      });
+      dispatch({
+          type: "SET_BOTTOM_NAV",
+          payload: "ParkTab"
+      })
+    },
+    goToFetchList: () => {
+        dispatch({
+          type: "SET_RENDER_CONTENT",
+          payload: "FetchList"
+        });
+        dispatch({
+            type: "SET_BOTTOM_NAV",
+            payload: "FetchTab"
+        })
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ParkCar);
