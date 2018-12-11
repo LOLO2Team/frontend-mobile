@@ -76,10 +76,16 @@ const mapDispatchToProps = dispatch => ({
           method: 'GET'    
         })
         .then(res => res.json())
-        .then(res => dispatch({
+        .then(res => 
+            dispatch({
             type: "SET_PARKING_LOTS",
             payload: res
-        })),
+        }),
+        dispatch({
+            type: "SET_HEADER",
+            payload: "Fetch List"
+          })
+    ),
 });
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders

@@ -86,18 +86,30 @@ const mapDispatchToProps = dispatch => ({
             type: "SET_RENDER_CONTENT",
             payload: "OrderDetails"
         });
+        dispatch({
+            type: "SET_HEADER",
+            payload: "Comfirm Order"
+          });
     },
     goToParkCar: () => {
         dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "ParkCar"
         });
+        dispatch({
+            type: "SET_HEADER",
+            payload: "Park Car"
+          });
     },
     goToFetchCar: () =>{
         dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "FetchCar"
-        });
+        })
+        dispatch({
+            type: "SET_HEADER",
+            payload: "Fetch Car"
+          });
     }
     
 });

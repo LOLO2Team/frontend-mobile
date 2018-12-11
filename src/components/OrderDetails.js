@@ -20,7 +20,7 @@ class OrderDetails extends Component {
           margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
         }}
         >
-          <List renderHeader={() => 'Confirm Order'} className="confirm-order-list">
+          <List className="confirm-order-list">
             <Item extra={order.orderId}>Order ID</Item>
             <Item extra={order.vehicleNumber}>Car ID</Item>
           </List>
@@ -60,6 +60,10 @@ const mapDispatchToProps = dispatch => ({
           dispatch({
             type: "SET_BOTTOM_NAV",
             payload: "ParkTab"
+          });
+          dispatch({
+            type: "SET_HEADER",
+            payload: "Comfirm Order - Select Parking Lot"
           });
         }
         else {

@@ -37,10 +37,16 @@ const mapDispatchToProps = dispatch => ({
       method: 'GET'    
     })
     .then(res => res.json())
-    .then(res => dispatch({
+    .then(res => 
+      dispatch({
       type: "GET_ORDERS",
       payload: res
+    }),
+    dispatch({
+      type: "SET_HEADER",
+      payload: "Park List"
     }))
+    
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParkList);

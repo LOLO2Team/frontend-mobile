@@ -10,7 +10,8 @@ const initialState = {
   parkingLotId: 0,
   content: "Orders",
   selectedTab: "OrdersTab",
-  parkingLotName: ''
+  parkingLotName: '',
+  header: "Parking!"
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -26,6 +27,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         selectedTab: payload
+      }
+    
+    case "SET_HEADER":
+      return {
+        ...state,
+        header: payload
       }
 
     case "SET_PARKING_ORDER":

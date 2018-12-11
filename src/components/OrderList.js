@@ -45,6 +45,10 @@ const mapDispatchToProps = dispatch => ({
      type: "GET_ORDERS",
      payload: res
      })
+     dispatch({
+      type: "SET_HEADER",
+      payload: "Order List"
+    });
   })
 });
 

@@ -7,46 +7,50 @@ class History extends Component {
         orderId: 1
     }
     render() {
-      const dummy = this.props.finishOrder
+        const dummy = this.props.finishOrder
         const checkNoOrders = () => {
-          if (this.props.parkingOrders.length === 0) {
-            return <div>Your order list is empty now!</div>
-          }
+            if (this.props.parkingOrders.length === 0) {
+                return <div>Your order list is empty now!</div>
+            }
         }
         return (
-          <div>
-            {this.props.parkingOrders.map((order) =>
-              <Order order={order} type="History" />)}
-    
-              {checkNoOrders()}
-          </div>
+            <div>
+                {this.props.parkingOrders.map((order) =>
+                    <Order order={order} type="History" />)}
+
+                {checkNoOrders()}
+            </div>
         )
-      }
+    }
 }
 const mapStateToProps = state => ({
-  parkingOrders: state.parkingOrders,
-  orderId: state.orderId,
-  parkingLotId: state.parkingLotId,
-  parkingLots: state.parkingLots
+    parkingOrders: state.parkingOrders,
+    orderId: state.orderId,
+    parkingLotId: state.parkingLotId,
+    parkingLots: state.parkingLots
 });
 
 const mapDispatchToProps = dispatch => ({
-  finishOrder: fetch("https://parking-lot-backend.herokuapp.com/orders?status=fetched", {
-      //getInitData: fetch("http://localhost:8081/orders", 
+    finishOrder: fetch("https://parking-lot-backend.herokuapp.com/orders?status=fetched", {
+        //getInitData: fetch("http://localhost:8081/orders", 
         headers: new Headers({
             'Content-Type': 'application/json'
         }),
-        mode: 'cors', 
-        method: 'GET'    
-      })
-      .then(res => res.json())
-      .then(res => {
-        dispatch({
-            type: "GET_ORDERS",
-            payload: res
+        mode: 'cors',
+        method: 'GET'
+    })
+        .then(res => res.json())
+        .then(res => {
+            dispatch({
+                type: "GET_ORDERS",
+                payload: res
+            })
+            dispatch({
+                type: "SET_HEADER",
+                payload: "History"
+            });
         })
-      })
-  
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(History);

@@ -52,7 +52,7 @@ class ParkCar extends Component {
                     margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
                 }}
                 >
-                    <List renderHeader={() => 'Select Parking Lot'} className="confirm-order-list">
+                    <List className="confirm-order-list">
                         <Item extra={order.orderId}>Order ID</Item>
                         <Item extra={order.vehicleNumber}>Car ID</Item>
                     </List>
