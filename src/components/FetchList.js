@@ -25,7 +25,7 @@ class FetchList extends Component {
     const dummy2 = this.props.getParkingLots;
     const checkNoFetchings = () => {
       if (this.props.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
-        return <div>Your fetching list is empty now!</div>
+        return <h2 className="empty-list">Your fetching list is empty now!</h2>
       }
     }
     return (

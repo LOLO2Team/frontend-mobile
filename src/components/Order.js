@@ -49,9 +49,17 @@ class Order extends Component {
             }
         }
 
+        const getLocation = () =>{
+            console.log(this.props.order);
+            
+            if(this.props.order.parkingLotId !== null){
+                return this.props.order.parkingLotId;
+            }
+        }
+
         return (
             <div className="order">
-                <Item onClick={this.orderClicked} className="order-item" >
+                <Item onClick={this.orderClicked} extra={getLocation()} className="order-item" >
                     {printFetchMark()}
                     {printCarIcon()}
                     {printHistoryIcon()}

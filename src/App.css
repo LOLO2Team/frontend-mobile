@@ -70,3 +70,11 @@
   margin-right:20px;
   font-size: 30px !important
 }
+
+.empty-list{
+  text-align: center;
+}
+
+.parked .order-desc, .parked i{
+  color:#bbb;
+}

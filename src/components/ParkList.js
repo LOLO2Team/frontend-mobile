@@ -7,7 +7,7 @@ class ParkList extends Component {
     const dummy = this.props.getInitData;
     const checkNoParkings = () => {
       if (this.props.parkingOrders.filter((order) => order.orderStatus === "parking").length === 0) {
-        return <div>Your parking list is empty now!</div>
+        return <h2 className="empty-list">Your parking list is empty now!</h2>
       }
     }
     return (
