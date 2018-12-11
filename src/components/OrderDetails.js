@@ -64,6 +64,14 @@ const mapDispatchToProps = dispatch => ({
         }
         else {
           alert("This order has been grabbed")
+          dispatch({
+            type: "SET_RENDER_CONTENT",
+            payload: "Orders"
+          });
+          dispatch({
+            type: "SET_BOTTOM_NAV",
+            payload: "OrdersTab"
+          });
         }
     })
   },
