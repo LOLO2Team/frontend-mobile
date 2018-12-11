@@ -58,7 +58,6 @@ export default (state = initialState, { type, payload }) => {
     }
 
     case "GET_FETCHING_ORDERS":{
-      console.log(state.parkingOrders)
       return{
         ...state,
         parkingOrders: state.parkingOrders.concat(payload)

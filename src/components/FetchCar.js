@@ -26,7 +26,8 @@ class FetchCar extends Component {
           (order) => order.orderId === orderId
         );
     }
-    onClickFetch = () => {
+    onClickFetch = (orderId) => {
+        this.props.finishOrder(orderId);
         return;
     }
     onClickCancel = () => {
@@ -47,7 +48,7 @@ class FetchCar extends Component {
                     </List>
 
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={this.onClickFetch}>Fetch Car</Button><WhiteSpace />
+                    <Button type="primary" onClick={() => this.onClickFetch(order.orderId)}>Fetch Car</Button><WhiteSpace />
                     <Button type="primary" onClick={this.onClickCancel}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
@@ -63,29 +64,21 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    // getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders?status=parked", {
-    //     //getInitData: fetch("http://localhost:8081/orders", 
-    //       headers: new Headers({
-    //           'Content-Type': 'application/json'
-    //       }),
-    //       mode: 'cors', 
-    //       method: 'GET'    
-    //     })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //         dispatch({
-    //             type: "SET_PARKING_LOTS",
-    //             payload: res
-    //         })
-    //     }),
-
+    finishOrder: (orderId) => fetch("https://parking-lot-backend.herokuapp.com/orders/" + orderId, {
+        //getInitData: fetch("http://localhost:8081/orders", 
+          headers: new Headers({
+              'Content-Type': 'application/json'
+          }),
+          mode: 'cors', 
+          method: 'DELETE'    
+        })
     // setParkingLotId: (id) => {
     //     dispatch({
     //         type:"SET_PARKING_LOT_ID",
     //         payload: id
     //     })
     // },
-    //using
+    //
     // goToParkList: () => {
     //   dispatch({
     //     type: "SET_RENDER_CONTENT",

@@ -50,7 +50,7 @@ class FetchList extends Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders?status=parked", {
+  getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders", {
     //getInitData: fetch("http://localhost:8081/orders?status=parked", {
         headers: new Headers({
             'Content-Type': 'application/json'
@@ -65,21 +65,6 @@ const mapDispatchToProps = dispatch => ({
               payload: res
           })
       })
-      .then(fetch("https://parking-lot-backend.herokuapp.com/orders?status=fetching", {
-      //.then(fetch("http://localhost:8081/orders?status=fetching", {
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        mode: 'cors', 
-        method: 'GET'    
-      })
-      .then(res => res.json())
-      .then(res => {
-          dispatch({
-              type: "GET_FETCHING_ORDERS",
-              payload: res
-          })
-      }))
 });
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders
