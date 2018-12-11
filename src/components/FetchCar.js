@@ -31,10 +31,13 @@ class FetchCar extends Component {
         return;
     }
     onClickCancel = () => {
+        this.props.goToFetchList();
         return;
     }
     render() {
+        const dummy = this.props.getParkingLots;
         const order = this.getOrder(this.props.orderId);
+        console.log(this.props.parkingLots)
         return (
             <div>
                 <Content style={{
@@ -45,6 +48,7 @@ class FetchCar extends Component {
                         <Item extra={order.orderId}>Order ID</Item>
                         <Item extra={order.vehicleNumber}>Car ID</Item>
                         <Item extra={this.props.parkingLots[order.parkingLotId].label}>Parking Lot</Item>
+                        {/* <Item extra="Science Parking Lot">Parking Lot</Item> */}
                     </List>
 
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
@@ -64,6 +68,19 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    getParkingLots: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+        //getInitData: fetch("http://localhost:8081/orders", 
+          headers: new Headers({
+              'Content-Type': 'application/json'
+          }),
+          mode: 'cors', 
+          method: 'GET'    
+        })
+        .then(res => res.json())
+        .then(res => dispatch({
+            type: "SET_PARKING_LOTS",
+            payload: res
+        })),
     finishOrder: (orderId) => fetch("https://parking-lot-backend.herokuapp.com/orders/" + orderId, {
         //getInitData: fetch("http://localhost:8081/orders", 
           headers: new Headers({
@@ -71,7 +88,13 @@ const mapDispatchToProps = dispatch => ({
           }),
           mode: 'cors', 
           method: 'DELETE'    
-        })
+        }),
+    goToFetchList: () => dispatch({
+        type: "SET_RENDER_CONTENT",
+        payload: "FetchList"
+
+    })
+
     // setParkingLotId: (id) => {
     //     dispatch({
     //         type:"SET_PARKING_LOT_ID",

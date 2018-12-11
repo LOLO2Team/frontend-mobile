@@ -49,16 +49,14 @@ class Order extends Component {
             }
         }
 
-       
-
         return (
-            <div class="order">
+            <div className="order">
                 <Item onClick={this.orderClicked} className="order-item" >
                     {printFetchMark()}
                     {printCarIcon()}
                     {printHistoryIcon()}
                     
-                    <div class="order-desc">
+                    <div className="order-desc">
                         <div>Order ID {this.props.order.orderId}</div>
                         <div>{this.props.order.vehicleNumber}</div>
                     </div>

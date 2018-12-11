@@ -31,10 +31,10 @@ class BottomNav extends Component {
           </TabBar.Item>
           <TabBar.Item
             icon={
-              <i class="fa-icon fas fa-parking"></i>
+              <i className="fa-icon fas fa-parking"></i>
             }
             selectedIcon={
-              <i class="fa-icon fas fa-parking"></i>
+              <i className="fa-icon fas fa-parking"></i>
             }
             title="Park"
             key="Park"

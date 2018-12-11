@@ -22,6 +22,7 @@ class FetchList extends Component {
   }
   render() {
     const dummy =  this.props.getInitData;
+    const dummy2 = this.props.getParkingLots;
     const checkNoFetchings = () => {
       if (this.props.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
         return <div>Your fetching list is empty now!</div>
@@ -64,7 +65,21 @@ const mapDispatchToProps = dispatch => ({
               type: "GET_ORDERS",
               payload: res
           })
-      })
+      }),
+  
+      getParkingLots: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+        //getInitData: fetch("http://localhost:8081/orders", 
+          headers: new Headers({
+              'Content-Type': 'application/json'
+          }),
+          mode: 'cors', 
+          method: 'GET'    
+        })
+        .then(res => res.json())
+        .then(res => dispatch({
+            type: "SET_PARKING_LOTS",
+            payload: res
+        })),
 });
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders
