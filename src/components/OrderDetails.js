@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Layout } from 'antd';
-import { Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
+import { Toast, Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
 const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 
@@ -53,6 +53,7 @@ const mapDispatchToProps = dispatch => ({
     })
     .then(res => {
         if (res.status === 200){
+          Toast.success("Order confirmed", 1);
           dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "ParkCar"
@@ -67,7 +68,12 @@ const mapDispatchToProps = dispatch => ({
           });
         }
         else {
-          alert("This order has been grabbed")
+          // alert(res.headers.Errormessage);
+          Toast.fail("This order has been grabbed", 3, false);
+          dispatch({
+            type: "SET_ERROR",
+            payload: true
+          });
           dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "Orders"

@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Order from './Order';
+import { Toast } from 'antd-mobile';
 
 class ParkList extends Component {
+  constructor(props) {
+    super(props);
+    if (!this.props.error){
+      Toast.loading("Loading...", 100);
+    }
+  }
+
+
   render() {
-    const dummy = this.props.getInitData;
+    const dataGet = this.props.getInitData;
+    if (dataGet && !this.props.error) {
+      Toast.hide();
+    }
     const checkNoParkings = () => {
       if (this.props.parkingOrders.filter((order) => order.orderStatus === "parking").length === 0) {
         return <h2 className="empty-list">Your parking list is empty now!</h2>

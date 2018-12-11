@@ -1,9 +1,9 @@
 const initialState = {
   parkingOrders: [
-    { orderId: 0, vehicleNumber: "init", orderStatus:"pending" },
-    { orderId: 1, vehicleNumber: "car1", orderStatus:"pending" },
-    { orderId: 2, vehicleNumber: "car2", orderStatus:"pending" },
-    { orderId: 3, vehicleNumber: "car3", orderStatus:"pending" }
+    // { orderId: 0, vehicleNumber: "init", orderStatus:"pending" },
+    // { orderId: 1, vehicleNumber: "car1", orderStatus:"pending" },
+    // { orderId: 2, vehicleNumber: "car2", orderStatus:"pending" },
+    // { orderId: 3, vehicleNumber: "car3", orderStatus:"pending" }
   ],
   parkingLots: [],
   orderId: 0,
@@ -11,7 +11,8 @@ const initialState = {
   content: "Orders",
   selectedTab: "OrdersTab",
   parkingLotName: '',
-  header: "Parking!"
+  header: "Parking!",
+  error: false
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -64,19 +65,23 @@ export default (state = initialState, { type, payload }) => {
         parkingLotId: payload
       }
 
-    case "GET_ORDERS":{
+    case "GET_ORDERS":
       return{
         ...state,
         parkingOrders: payload
       }
-    }
 
-    case "GET_FETCHING_ORDERS":{
-      return{
+    case "GET_FETCHING_ORDERS":
+      return {
         ...state,
         parkingOrders: state.parkingOrders.concat(payload)
       }
-    }
+
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: payload
+      }
 
     default:
       return state

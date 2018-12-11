@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Layout } from 'antd';
 import { PickerView } from 'antd-mobile';
-import { Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
+import { Toast, Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
 const { Header, Sider, Content } = Layout;
 const Item = List.Item;
-const parkingLotList = [
-    {
-        label: 'Sheung Wan Parking Lot',
-        value: 0,
-    },
-    {
-        label: 'Central Parking Lot',
-        value: 1,
-    },
-    {
-        label: 'HH Parking Lot',
-        value: 2,
-    },
-];
+// const parkingLotList = [
+//     {
+//         label: 'Sheung Wan Parking Lot',
+//         value: 0,
+//     },
+//     {
+//         label: 'Central Parking Lot',
+//         value: 1,
+//     },
+//     {
+//         label: 'HH Parking Lot',
+//         value: 2,
+//     },
+// ];
 
 
 class ParkCar extends Component {
@@ -41,7 +41,7 @@ class ParkCar extends Component {
     }
     onClickCancel = () => {
         this.props.goToParkList();
-      }
+    }
 
     render() {
         const order = this.getOrder(this.props.orderId);
@@ -93,7 +93,7 @@ const mapDispatchToProps = dispatch => ({
             dispatch({
                 type: "SET_PARKING_LOTS",
                 payload: res
-            })
+            });
         }),
 
     setParkingLotId: (id) => {
@@ -113,12 +113,18 @@ const mapDispatchToProps = dispatch => ({
       })
     },
     goToFetchList: (order, parkingLotId) => {
-        console.log(parkingLotId)
         fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/"+  parkingLotId,{
             mode: 'cors',
             method: 'PUT', 
             headers: new Headers({ 'Content-Type': 'application/json'})
         })
+        .then(res => {
+            if (res.status == 200) {
+                Toast.success("Order status updated", 1);
+            } else {
+                Toast.fail("Error")
+            }
+        });
         dispatch({
           type: "SET_RENDER_CONTENT",
           payload: "FetchList"
@@ -126,7 +132,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch({
             type: "SET_BOTTOM_NAV",
             payload: "FetchTab"
-        })
+        });
     }
 });
 

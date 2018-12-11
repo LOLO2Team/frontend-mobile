@@ -50,8 +50,6 @@ class Order extends Component {
         }
 
         const getLocation = () =>{
-            console.log(this.props.order);
-            
             if(this.props.order.parkingLotId !== null){
                 return this.props.order.parkingLotId;
             }
