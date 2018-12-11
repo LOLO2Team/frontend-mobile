@@ -87,7 +87,8 @@ const mapDispatchToProps = dispatch => ({
             payload: id
         })
     },
-    finishOrder: (orderId) => fetch("https://parking-lot-backend.herokuapp.com/orders/" + orderId, {
+    finishOrder: (orderId) => {
+        fetch("https://parking-lot-backend.herokuapp.com/orders/" + orderId, {
         //getInitData: fetch("http://localhost:8081/orders", 
           headers: new Headers({
               'Content-Type': 'application/json'
@@ -98,47 +99,17 @@ const mapDispatchToProps = dispatch => ({
         .then(dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "History"
-        })),
-    goToFetchList: () => dispatch({
-        type: "SET_RENDER_CONTENT",
-        payload: "FetchList"
-
-    })
-
-    // setParkingLotId: (id) => {
-    //     dispatch({
-    //         type:"SET_PARKING_LOT_ID",
-    //         payload: id
-    //     })
-    // },
-    //
-    // goToParkList: () => {
-    //   dispatch({
-    //     type: "SET_RENDER_CONTENT",
-    //     payload: "ParkList"
-    //   });
-    //   dispatch({
-    //       type: "SET_BOTTOM_NAV",
-    //       payload: "ParkTab"
-    //   })
-    // },
-    // // using
-    // goToFetchList: (order, parkingLotId) => {
-    //     console.log(parkingLotId)
-    //     fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/"+  parkingLotId,{
-    //         mode: 'cors',
-    //         method: 'PUT', 
-    //         headers: new Headers({ 'Content-Type': 'application/json'})
-    //     })
-    //     dispatch({
-    //       type: "SET_RENDER_CONTENT",
-    //       payload: "FetchList"
-    //     });
-    //     dispatch({
-    //         type: "SET_BOTTOM_NAV",
-    //         payload: "FetchTab"
-    //     })
-    // }
+        })).then(dispatch({
+            type: "SET_BOTTOM_NAV",
+            payload: "HistoryTab"
+        }));
+    },
+    goToFetchList: () => {
+        dispatch({
+            type: "SET_RENDER_CONTENT",
+            payload: "FetchList"
+        })
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FetchCar);
