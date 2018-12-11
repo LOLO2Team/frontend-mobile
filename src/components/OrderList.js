@@ -10,23 +10,24 @@ class OrderList extends Component {
       parkingOrders: this.props.parkingOrders
     }
     this.refreshOrderList();
-    if (!this.props.error) {
-      Toast.loading("Loading...", 100);
-    }
   }
 
   refreshOrderList = () => {
+    if (this.props.error === "orderListFetchError") {
+      return;
+    }
     const dataGet = this.props.getInitData(this.props.token);
-    if (dataGet && !this.props.error) {
-      Toast.hide();
+    if (this.props.error === "loading") {
+      Toast.loading("Loading...", 1);
+      return;
     }
     if (JSON.stringify(this.state.parkingOrders) != JSON.stringify(this.props.parkingOrders)) {
-      this.setState({parkingOrders: this.props.parkingOrders});
+      this.setState({ parkingOrders: this.props.parkingOrders });
     }
   }
 
   componentWillMount() {
-    console.log("start")
+    this.props.resetError();
     this.refreshOrderList();
   }
 
@@ -38,7 +39,7 @@ class OrderList extends Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-  
+
 
   render() {
     const checkNoOrders = () => {
@@ -51,9 +52,9 @@ class OrderList extends Component {
         {this.state.parkingOrders
           .filter((order) => order.orderStatus === "pending")
           .map((order) =>
-          <Order order={order} type="Orders" />)}
+            <Order order={order} type="Orders" />)}
 
-          {checkNoOrders()}
+        {checkNoOrders()}
       </div>
     )
   }
@@ -67,23 +68,52 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getInitData: (token) => {
+    // dispatch({
+    //   type: "SET_ERROR",
+    //   payload: "loading"
+    // });
     fetch("https://parking-lot-backend.herokuapp.com/orders?status=pending", {
-    //getInitData: fetch("http://localhost:8081/orders", {
+      // fetch("http://localhost:8081/orders?status=pending", {
+      //getInitData: fetch("http://localhost:8081/orders", {
       headers: new Headers({
-          'Content-Type': 'application/json',
-          'Authorization' : token
+        'Content-Type': 'application/json',
+        'Authorization': token
       }),
-      mode: 'cors', 
-      method: 'GET'    
+      mode: 'cors',
+      method: 'GET'
     })
-    .then(res => res.json())
-    .then(res => {
-      dispatch({
-      type: "GET_ORDERS",
-      payload: res
+      .then(res => {
+        if (res.status !== 200) {
+          Toast.info("An error occurred when getting order list from server.", 1);
+          dispatch({
+            type: "SET_ERROR",
+            payload: "orderListFetchError"
+          });
+          return "_ERROR";
+        } else {
+          return res.json();
+        }
       })
-   })
-   return true;
+      .then(res => {
+        if (res !== "_ERROR") {
+          dispatch({
+            type: "GET_ORDERS",
+            payload: res
+          });
+          dispatch({
+            type: "SET_ERROR",
+            payload: "false"
+          });
+        }
+      })
+    return true;
+
+  },
+  resetError: () => {
+    dispatch({
+      type: "SET_ERROR",
+      payload: "loading"
+    })
   }
 });
 

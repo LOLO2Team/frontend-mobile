@@ -12,6 +12,8 @@ class FetchList extends Component {
     this.state = {
       parkingOrders: this.props.parkingOrders
     }
+    this.props.setHeader();
+    this.props.resetError();
     this.refreshOrderList();
     if (!this.props.error) {
       Toast.loading("Loading...", 100);
@@ -42,8 +44,8 @@ class FetchList extends Component {
   }
 
   render() {
-    const dummy = this.props.getInitData;
-    const dummy2 = this.props.getParkingLots;
+    const dummy = this.props.getInitData(this.props.token);
+    const dummy2 = this.props.getParkingLots();
     const checkNoFetchings = () => {
       if (this.state.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
         return <h2 className="empty-list">Your fetching list is empty now!</h2>
@@ -74,45 +76,95 @@ class FetchList extends Component {
 
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders,
-  error: state.error
+  error: state.error,
+  token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders", {
-    //getInitData: fetch("http://localhost:8081/orders?status=parked", {
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    mode: 'cors',
-    method: 'GET'
-  })
-    .then(res => res.json())
-    .then(res => {
-      dispatch({
-        type: "GET_ORDERS",
-        payload: res
-      })
-    }),
-
-  getParkingLots: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
-    //getInitData: fetch("http://localhost:8081/orders", 
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    mode: 'cors',
-    method: 'GET'
-  })
-    .then(res => res.json())
-    .then(res =>
-      dispatch({
-        type: "SET_PARKING_LOTS",
-        payload: res
+  getInitData: (token) => {
+    fetch("https://parking-lot-backend.herokuapp.com/orders", {
+      //getInitData: fetch("http://localhost:8081/orders?status=parked", {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': token
       }),
-      dispatch({
-        type: "SET_HEADER",
-        payload: "Fetch List"
+      mode: 'cors',
+      method: 'GET'
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === 200) {
+          dispatch({
+            type: "GET_ORDERS",
+            payload: res
+          })
+        } else {
+          Toast.info("An error occurred when getting fetching list from server.", 1);
+          dispatch({
+            type: "SET_ERROR",
+            payload: "orderListFetchError"
+          });
+        }
       })
-    ),
+  },
+  getParkingLots: () => {
+    fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+      //getInitData: fetch("http://localhost:8081/orders", 
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      mode: 'cors',
+      method: 'GET'
+    })
+    .then(res => {
+      if (res.status !== 200) {
+        Toast.info("An error occurred when getting order list from server.", 1);
+        dispatch({
+          type: "SET_ERROR",
+          payload: "orderListFetchError"
+        });
+        return "_ERROR";
+      } else {
+        return res.json();
+      }
+    })
+    .then(res => {
+      if (res !== "_ERROR") {
+        dispatch({
+          type: "SET_PARKING_LOTS",
+          payload: res
+        });
+      }
+    })
+  return true;
+      // .then(res => res.json())
+      // .then(res => {
+      //   if (res.status === 200) {
+      //     dispatch({
+      //       type: "SET_PARKING_LOTS",
+      //       payload: res
+      //     })  
+      //   } else {
+      //     Toast.info("An error occurred when getting fetching list from server.", 1);
+      //     dispatch({
+      //       type: "SET_ERROR",
+      //       payload: "orderListFetchError"
+      //     });
+      //   }
+      // })
+  },
+  resetError: () => {
+    dispatch({
+      type: "SET_ERROR",
+      payload: false
+    })
+  },
+  setHeader: () => {
+    dispatch({
+      type: "SET_HEADER",
+      payload: "Park List"
+    });
+  }
 });
 
 

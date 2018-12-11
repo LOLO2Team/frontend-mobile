@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Layout } from 'antd';
-import { Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
+import { Toast, Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
 const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 
@@ -95,6 +95,21 @@ const mapDispatchToProps = dispatch => ({
           }),
           mode: 'cors', 
           method: 'DELETE'    
+        })
+        .then(res => {
+            if (res.status == 200) {
+                Toast.success("Order status updated", 1);
+                dispatch({
+                  type: "SET_ERROR",
+                  payload: false
+                });
+              } else {
+                Toast.fail("Error");
+                dispatch({
+                  type: "SET_ERROR",
+                  payload: true
+                });
+              }
         })
         .then(dispatch({
             type: "SET_RENDER_CONTENT",

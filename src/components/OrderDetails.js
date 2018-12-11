@@ -11,7 +11,7 @@ class OrderDetails extends Component {
       (order) => order.orderId === orderId
     );
   }
-  
+
   render() {
     const order = this.getOrder(this.props.orderId);
     return (
@@ -24,8 +24,8 @@ class OrderDetails extends Component {
             <Item extra={order.orderId}>Order ID</Item>
             <Item extra={order.vehicleNumber}>Car ID</Item>
           </List>
-          <Button type="primary" onClick={() => this.props.goToPark(order)}>Confirm Order</Button><WhiteSpace />
-          <Button type="primary" onClick={this.props.goToOrders}>Cancel</Button><WhiteSpace />
+          <Button type="primary" onClick={() => this.props.onConfirm(order,this.props.token)}>Confirm Order</Button><WhiteSpace />
+          <Button type="primary" onClick={this.props.onCancel}>Cancel</Button><WhiteSpace />
         </Content>
       </div>
     )
@@ -34,26 +34,34 @@ class OrderDetails extends Component {
 
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders,
-  orderId: state.orderId
+  orderId: state.orderId,
+  token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  goToPark: (order) => {
-    fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/0",{
-    //fetch("http://localhost:8081/orders/" + order.orderId + "/employeeId/0",{
+  onConfirm: (order, token) => {
+    fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/0", {
+      //fetch("http://localhost:8081/orders/" + order.orderId + "/employeeId/0",{
       mode: 'cors',
-      method: 'PUT', 
+      method: 'PUT',
       body: JSON.stringify({
         "content": order.orderId,
         "vehicleNumber": order.vehicleNumber,
         "orderStatus": "parking",
         "employeeId": 0
       }),
-      headers: new Headers({ 'Content-Type': 'application/json'})
+      headers: new Headers({ 
+        'Content-Type': 'application/json',
+        'Authorization': token
+     })
     })
-    .then(res => {
-        if (res.status === 200){
+      .then(res => {
+        if (res.status === 200) {
           Toast.success("Order confirmed", 1);
+          dispatch({
+            type: "SET_ERROR",
+            payload: false
+          });
           dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "ParkCar"
@@ -68,8 +76,11 @@ const mapDispatchToProps = dispatch => ({
           });
         }
         else {
-          // alert(res.headers.Errormessage);
-          Toast.fail("This order has been grabbed", 3, false);
+          if (res.status === 403) {
+            Toast.fail("Action not authorized", 3);
+          } else {
+            Toast.fail("This order has been grabbed", 3);
+          }
           dispatch({
             type: "SET_ERROR",
             payload: true
@@ -83,14 +94,14 @@ const mapDispatchToProps = dispatch => ({
             payload: "OrdersTab"
           });
         }
-    })
+      })
   },
-  goToOrders: () => {
+  onCancel: () => {
     dispatch({
       type: "SET_RENDER_CONTENT",
       payload: "Orders"
     });
-  } 
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDetails);

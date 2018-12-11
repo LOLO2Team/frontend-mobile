@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List, InputItem, WhiteSpace, Button } from 'antd-mobile';
+import { Toast, List, InputItem, WhiteSpace, Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { connect } from "react-redux";
 
@@ -45,7 +45,6 @@ const mapDispatchToProps = dispatch => ({
   
   login: (name, password) => {
     const identity ={username: name ,password: password};
-    console.log(identity)
     fetch("https://parking-lot-backend.herokuapp.com/login",{
         mode: 'cors',
         method: 'POST', 
@@ -53,24 +52,19 @@ const mapDispatchToProps = dispatch => ({
         headers: new Headers({ 'Content-Type': 'application/json'})
     })
     .then(res => {
+      console.log(res.headers.get("Authorization"))
       if(res.status===200){
         dispatch({
           type: "SET_TOKEN",
           payload: res.headers.get("Authorization")
+        });
+        dispatch({
+          type: "SET_RENDER_CONTENT",
+          payload: "Orders"
         })
-        // Please go to order page
-
-        // dispatch({
-        //   type: "SET_RENDER_CONTENT",
-        //   payload: "Orders"
-        // });
-        // dispatch({
-        //     type: "SET_BOTTOM_NAV",
-        //     payload: "OrdersTab"
-        // });
+      } else {
+        Toast.fail("Username/password incorrect!", 1, null, false);
       }
-      else
-        alert("Username/password incorrect!")
     })
     
   }

@@ -22,118 +22,130 @@ const Item = List.Item;
 
 
 class ParkCar extends Component {
-    onChangeParkingLot = (value) => {
-        this.props.setParkingLotId(value)
-    }
-    onScrollChangeParkingLot = (value) => {
-        this.props.setParkingLotId(value)
-    }
+  onChangeParkingLot = (value) => {
+    this.props.setParkingLotId(value)
+  }
+  onScrollChangeParkingLot = (value) => {
+    this.props.setParkingLotId(value)
+  }
 
-    getOrder = (orderId) => {
-        return this.props.parkingOrders.find(
-            (order) => order.orderId === orderId
-        );
-    }
+  getOrder = (orderId) => {
+    return this.props.parkingOrders.find(
+      (order) => order.orderId === orderId
+    );
+  }
 
-    onClickPark = () => {
-        this.props.goToFetchList();
-        // add parking lot to order item
-    }
-    onClickCancel = () => {
-        this.props.goToParkList();
-    }
+  onClickPark = () => {
+    this.props.goToFetchList();
+    // add parking lot to order item
+  }
+  onClickCancel = () => {
+    this.props.goToParkList();
+  }
 
-    render() {
-        const order = this.getOrder(this.props.orderId);
-        const dummy = this.props.getInitData;
-        return (
-            <div>
-                <Content style={{
-                    margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
-                }}
-                >
-                    <List className="confirm-order-list">
-                        <Item extra={order.orderId}>Order ID</Item>
-                        <Item extra={order.vehicleNumber}>Car ID</Item>
-                    </List>
-                    <PickerView
-                        onChange={this.onChangeParkingLot}
-                        onScrollChange={this.onScrollChangeParkingLot}
-                        value={this.props.parkingLotId}
-                        data={this.props.parkingLots}
-                        cascade={false}
-                    />
-                    {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={() => this.props.goToFetchList(order,this.props.parkingLots[this.props.parkingLotId].id)}>Finished Parking</Button><WhiteSpace />
-                    <Button type="primary" onClick={this.props.goToParkList}>Cancel</Button><WhiteSpace />
-                </Content>
-            </div>
-        )
-    }
+  render() {
+    const order = this.getOrder(this.props.orderId);
+    const dummy = this.props.getInitData;
+    return (
+      <div>
+        <Content style={{
+          margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
+        }}
+        >
+          <List className="confirm-order-list">
+            <Item extra={order.orderId}>Order ID</Item>
+            <Item extra={order.vehicleNumber}>Car ID</Item>
+          </List>
+          <PickerView
+            onChange={this.onChangeParkingLot}
+            onScrollChange={this.onScrollChangeParkingLot}
+            value={this.props.parkingLotId}
+            data={this.props.parkingLots}
+            cascade={false}
+          />
+          {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
+          <Button type="primary" onClick={() => this.props.goToFetchList(order, this.props.parkingLots[this.props.parkingLotId].id, this.props.token)}>Finished Parking</Button><WhiteSpace />
+          <Button type="primary" onClick={this.props.goToParkList}>Cancel</Button><WhiteSpace />
+        </Content>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => ({
-    parkingOrders: state.parkingOrders,
-    orderId: state.orderId,
-    parkingLotId: state.parkingLotId,
-    parkingLots: state.parkingLots
+  parkingOrders: state.parkingOrders,
+  orderId: state.orderId,
+  parkingLotId: state.parkingLotId,
+  parkingLots: state.parkingLots,
+  token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-    getInitData: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
-        //getInitData: fetch("http://localhost:8081/orders", 
-          headers: new Headers({
-              'Content-Type': 'application/json'
-          }),
-          mode: 'cors', 
-          method: 'GET'    
-        })
-        .then(res => res.json())
-        .then(res => {
-            dispatch({
-                type: "SET_PARKING_LOTS",
-                payload: res
-            });
-        }),
-
-    setParkingLotId: (id) => {
-        dispatch({
-            type:"SET_PARKING_LOT_ID",
-            payload: id
-        })
-    },
-    goToParkList: () => {
+  getInitData: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+    //getInitData: fetch("http://localhost:8081/orders", 
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    mode: 'cors',
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(res => {
       dispatch({
-        type: "SET_RENDER_CONTENT",
-        payload: "ParkList"
+        type: "SET_PARKING_LOTS",
+        payload: res
       });
-      dispatch({
-          type: "SET_BOTTOM_NAV",
-          payload: "ParkTab"
+    }),
+
+  setParkingLotId: (id) => {
+    dispatch({
+      type: "SET_PARKING_LOT_ID",
+      payload: id
+    })
+  },
+  goToParkList: () => {
+    dispatch({
+      type: "SET_RENDER_CONTENT",
+      payload: "ParkList"
+    });
+    dispatch({
+      type: "SET_BOTTOM_NAV",
+      payload: "ParkTab"
+    })
+  },
+  goToFetchList: (order, parkingLotId, token) => {
+    fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/" + parkingLotId, {
+      mode: 'cors',
+      method: 'PUT',
+      headers: new Headers({
+         'Content-Type': 'application/json',
+         'Authorization': token
       })
-    },
-    goToFetchList: (order, parkingLotId) => {
-        fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/"+  parkingLotId,{
-            mode: 'cors',
-            method: 'PUT', 
-            headers: new Headers({ 'Content-Type': 'application/json'})
-        })
-        .then(res => {
-            if (res.status == 200) {
-                Toast.success("Order status updated", 1);
-            } else {
-                Toast.fail("Error")
-            }
-        });
-        dispatch({
-          type: "SET_RENDER_CONTENT",
-          payload: "FetchList"
-        });
-        dispatch({
-            type: "SET_BOTTOM_NAV",
-            payload: "FetchTab"
-        });
-    }
+    })
+      .then(res => {
+        if (res.status == 200) {
+          Toast.success("Order status updated", 1);
+          dispatch({
+            type: "SET_ERROR",
+            payload: false
+          });
+        } else {
+          Toast.fail("Error");
+          dispatch({
+            type: "SET_ERROR",
+            payload: true
+          });
+        }
+      });
+    dispatch({
+      type: "SET_RENDER_CONTENT",
+      payload: "FetchList"
+    });
+    dispatch({
+      type: "SET_BOTTOM_NAV",
+      payload: "FetchTab"
+    });
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParkCar);

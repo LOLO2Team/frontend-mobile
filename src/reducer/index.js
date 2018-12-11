@@ -12,7 +12,7 @@ const initialState = {
   selectedTab: "OrdersTab",
   parkingLotName: '',
   header: "Parking!",
-  error: false,
+  error: "loading",
   token: ""
 }
 
