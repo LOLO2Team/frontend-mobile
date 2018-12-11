@@ -4,6 +4,7 @@ import Order from './Order';
 
 class ParkList extends Component {
   render() {
+    const dummy = this.props.getInitData;
     const checkNoParkings = () => {
       if (this.props.parkingOrders.filter((order) => order.orderStatus === "parking").length === 0) {
         return <div>Your parking list is empty now!</div>
@@ -26,4 +27,20 @@ const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders
 });
 
-export default connect(mapStateToProps)(ParkList);
+const mapDispatchToProps = dispatch => ({
+  getInitData: fetch("https://parking-lot-backend.herokuapp.com/orders/", {
+    //getInitData: fetch("http://localhost:8081/orders", 
+      headers: new Headers({
+          'Content-Type': 'application/json'
+      }),
+      mode: 'cors', 
+      method: 'GET'    
+    })
+    .then(res => res.json())
+    .then(res => dispatch({
+      type: "GET_ORDERS",
+      payload: res
+    }))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ParkList);
