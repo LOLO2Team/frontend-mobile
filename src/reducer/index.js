@@ -9,7 +9,8 @@ const initialState = {
   orderId: 0,
   parkingLotId: 0,
   content: "Orders",
-  selectedTab: "OrdersTab"
+  selectedTab: "OrdersTab",
+  parkingLotName: ''
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -43,6 +44,12 @@ export default (state = initialState, { type, payload }) => {
         }})
       }
     }
+
+    case "SET_FETCH_PARKING_LOT": 
+      return {
+        ...state,
+        parkingLotName: state.parkingLots.find((parkingLot) => parkingLot.id === payload).label
+      }
 
     case "SET_PARKING_LOT_ID":
       return {
