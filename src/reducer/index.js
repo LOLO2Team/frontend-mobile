@@ -12,7 +12,8 @@ const initialState = {
   selectedTab: "OrdersTab",
   parkingLotName: '',
   header: "Parking!",
-  error: false
+  error: false,
+  token: ""
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -81,6 +82,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         error: payload
+      }
+
+    case "SET_TOKEN":
+      return {
+        ...state,
+        token: payload
       }
 
     default:
