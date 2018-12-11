@@ -51,14 +51,21 @@ const mapDispatchToProps = dispatch => ({
       }),
       headers: new Headers({ 'Content-Type': 'application/json'})
     })
-    dispatch({
-      type: "SET_RENDER_CONTENT",
-      payload: "ParkCar"
-    });
-    dispatch({
-      type: "SET_BOTTOM_NAV",
-      payload: "ParkTab"
-    });
+    .then(res => {
+        if (res.status === 200){
+          dispatch({
+            type: "SET_RENDER_CONTENT",
+            payload: "ParkCar"
+          });
+          dispatch({
+            type: "SET_BOTTOM_NAV",
+            payload: "ParkTab"
+          });
+        }
+        else {
+          alert("This order has been grabbed")
+        }
+    })
   },
   goToOrders: () => {
     dispatch({
