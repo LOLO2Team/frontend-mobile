@@ -64,7 +64,7 @@ class ParkCar extends Component {
                         cascade={false}
                     />
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={() => this.props.goToFetchList(order,this.props.parkingLotId)}>Finished Parking</Button><WhiteSpace />
+                    <Button type="primary" onClick={() => this.props.goToFetchList(order,this.props.parkingLots[this.props.parkingLotId].id)}>Finished Parking</Button><WhiteSpace />
                     <Button type="primary" onClick={this.props.goToParkList}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
