@@ -41,11 +41,16 @@
   border-bottom: 1px lightblue solid;
 }
 
-.order .car-icon{
+.order .car-icon, .order .history-icon{
   display: inline-block;
   font-size: 40px;
   margin: 10px 0px;
   margin-right: 20px;
+}
+
+.order .history-icon{
+  color: #5cb85c;
+  border-color: #4cae4c;
 }
 
 .order-desc{

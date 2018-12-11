@@ -38,11 +38,28 @@ class Order extends Component {
                 return <i className="fa-icon fetch-now-icon fas fa-exclamation"></i>;
             }
         }
+
+        const printCarIcon = () =>{
+            if(this.props.type !== "History"){
+                return <i className="car-icon fas fa-car"></i>
+            }
+        }
+
+        const printHistoryIcon = () =>{
+            if(this.props.type === "History"){
+                return <i className="history-icon fas fa-check"></i>
+            }
+        }
+
+       
+
         return (
             <div class="order">
                 <Item onClick={this.orderClicked} className="order-item" >
                     {printFetchMark()}
-                    <i class="car-icon fas fa-car"></i>
+                    {printCarIcon()}
+                    {printHistoryIcon()}
+                    
                     <div class="order-desc">
                         <div>Order ID {this.props.order.orderId}</div>
                         <div>{this.props.order.vehicleNumber}</div>
