@@ -45,7 +45,7 @@ class FetchList extends Component {
 
   render() {
     const dummy = this.props.getInitData(this.props.token);
-    const dummy2 = this.props.getParkingLots();
+    const dummy2 = this.props.getParkingLots(this.props.token);
     const checkNoFetchings = () => {
       if (this.state.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
         return <h2 className="empty-list">Your fetching list is empty now!</h2>
@@ -91,32 +91,44 @@ const mapDispatchToProps = dispatch => ({
       mode: 'cors',
       method: 'GET'
     })
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 200) {
-          dispatch({
-            type: "GET_ORDERS",
-            payload: res
-          })
-        } else {
-          Toast.info("An error occurred when getting fetching list from server.", 1);
-          dispatch({
-            type: "SET_ERROR",
-            payload: "orderListFetchError"
-          });
-        }
-      })
+    .then(res => {
+      if (res.status !== 200) {
+        Toast.info("An error occurred when getting order list from server.", 1);
+        dispatch({
+          type: "SET_ERROR",
+          payload: "orderListFetchError"
+        });
+        return "_ERROR";
+      } else {
+        return res.json();
+      }
+    })
+    .then(res => {
+      if (res !== "_ERROR") {
+        dispatch({
+          type: "GET_ORDERS",
+          payload: res
+        });
+        dispatch({
+          type: "SET_ERROR",
+          payload: "false"
+        });
+      }
+    })
+    return true;
   },
-  getParkingLots: () => {
+  getParkingLots: (token) => {
     fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
       //getInitData: fetch("http://localhost:8081/orders", 
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': token
       }),
       mode: 'cors',
       method: 'GET'
     })
     .then(res => {
+
       if (res.status !== 200) {
         Toast.info("An error occurred when getting order list from server.", 1);
         dispatch({
