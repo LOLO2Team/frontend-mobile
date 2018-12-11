@@ -8,7 +8,7 @@ const initialState = {
   parkingLots: [],
   orderId: 0,
   parkingLotId: 0,
-  content: "Orders",
+  content: "Login",
   selectedTab: "OrdersTab",
   parkingLotName: '',
   header: "Parking!",

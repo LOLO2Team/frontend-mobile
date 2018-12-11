@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './App.css';
 // import { TabBar, List, NavBar, Icon } from 'antd-mobile';
+import Login from './components/Login';
 import OrderList from './components/OrderList';
 import FetchList from './components/FetchList';
 import OrderDetails from './components/OrderDetails';
@@ -29,6 +30,9 @@ class App extends Component {
 
   renderContent(pageText, id=0) {
     switch(pageText) {
+      case "Login":
+        return (<Login />);
+
       case "Orders":
         return (<OrderList />);
       
