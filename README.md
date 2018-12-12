@@ -51,7 +51,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 deploy:
   provider: heroku
   api_key: 02ad66a3-fa5a-4f4a-a0c2-1542413b1246
-  app: parking-lot-backend-prod
+  app: parking-lot-frontend-app-prod
   on:
     branches:
         only:
