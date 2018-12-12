@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './App.css';
+// import { Layout } from 'antd';
 // import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import Login from './components/Login';
 import OrderList from './components/OrderList';
@@ -15,7 +16,7 @@ import History from './components/History';
 import MyProfile from './components/MyProfile';
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-// const Item = List.Item;
+// const { Header, Sider, Content } = Layout;
 
 class App extends Component {
   constructor(props) {

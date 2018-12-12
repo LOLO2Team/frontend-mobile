@@ -78,3 +78,12 @@
 .parked .order-desc, .parked i{
   color:#bbb;
 }
+
+.login-panel {
+  padding-top: 7em;
+}
+
+.narrow-btn {
+  width: 80%;
+  margin: 0 auto;
+}

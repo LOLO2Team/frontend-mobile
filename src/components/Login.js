@@ -13,7 +13,7 @@ class Login extends React.Component {
   render() {
     const { getFieldProps } = this.props.form;
     return (
-      <div>
+      <div className="login-panel">
         <List>
           <InputItem
             {...getFieldProps('Name')}
@@ -28,8 +28,8 @@ class Login extends React.Component {
             type="password"
           // placeholder="****"
           >Password</InputItem>
-        </List>
-        <Button type="primary" onClick={this.clickLogin}>Login</Button><WhiteSpace />
+        </List><WhiteSpace />
+        <Button type="primary" onClick={this.clickLogin} className="narrow-btn">Login</Button><WhiteSpace />
       </div>
     )
   }
@@ -51,11 +51,15 @@ const mapDispatchToProps = dispatch => ({
         headers: new Headers({ 'Content-Type': 'application/json'})
     })
     .then(res => {
-      console.log(res.headers.get("Authorization"))
+      console.log(res)
       if(res.status===200){
         dispatch({
           type: "SET_TOKEN",
           payload: res.headers.get("Authorization")
+        });
+        dispatch({
+          type: "SET_USER",
+          payload: res
         });
         dispatch({
           type: "SET_RENDER_CONTENT",

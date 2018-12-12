@@ -13,7 +13,8 @@ const initialState = {
   parkingLotName: '',
   header: "Parking!",
   error: "loading",
-  token: ""
+  token: "",
+  user: ""
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -88,6 +89,12 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         token: payload
+      }
+
+    case "SET_USER":
+      return{
+        ...state,
+        user: payload
       }
 
     default:

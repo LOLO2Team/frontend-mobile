@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Toast, Button } from 'antd-mobile';
+import { Layout } from 'antd';
+import { Toast, Button, WhiteSpace } from 'antd-mobile';
+
+const { Header, Sider, Content } = Layout;
 
 class MyProfile extends Component {
   onLogout = () => {
@@ -10,8 +13,18 @@ class MyProfile extends Component {
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.onLogout}>Logout</Button>
-        
+        <Content style={{
+          margin: '24px 0', padding: 24, background: '#fff', minHeight: 280,
+        }}
+        >
+        <p>Name:<span></span></p>
+        <p>Username:<span></span></p>
+        <p>Email:<span></span></p>
+        <p>Phone:<span></span></p>
+        <p>Role:<span></span></p>
+          <WhiteSpace />
+          <Button type="primary" onClick={this.onLogout}>Logout</Button>
+        </Content>
       </div>
     )
   }
