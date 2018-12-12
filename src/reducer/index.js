@@ -5,6 +5,7 @@ const initialState = {
     // { orderId: 2, vehicleNumber: "car2", orderStatus:"pending" },
     // { orderId: 3, vehicleNumber: "car3", orderStatus:"pending" }
   ],
+  employee:[],
   parkingLots: [],
   orderId: 0,
   parkingLotId: 0,
@@ -19,6 +20,12 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+
+    case "GET_EMPLOYEE_BY_ID":
+      return{
+        ...state,
+        employee: payload
+      }
 
     case "SET_RENDER_CONTENT":
       return { 

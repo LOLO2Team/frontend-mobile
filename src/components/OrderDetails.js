@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Layout } from 'antd';
 import { Toast, Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
+import orderResources from "../resources/orderResources"
 const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 
@@ -40,21 +41,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onConfirm: (order, token) => {
-    fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/0", {
-      //fetch("http://localhost:8081/orders/" + order.orderId + "/employeeId/0",{
-      mode: 'cors',
-      method: 'PUT',
-      body: JSON.stringify({
-        "content": order.orderId,
-        "vehicleNumber": order.vehicleNumber,
-        "orderStatus": "parking",
-        "employeeId": 0
-      }),
-      headers: new Headers({ 
-        'Content-Type': 'application/json',
-        'Authorization': token
-     })
-    })
+    orderResources.grabOrderWithId(order, token) 
       .then(res => {
         if (res.status === 200) {
           Toast.success("Order confirmed", 1);

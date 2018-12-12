@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Layout } from 'antd';
 import { PickerView } from 'antd-mobile';
 import { Toast, Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
+import orderResources from "../resources/orderResources"
+import parkingLotResources from "../resources/parkingLotResources"
 const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 // const parkingLotList = [
@@ -81,15 +83,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: (token) => fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
-    //getInitData: fetch("http://localhost:8081/orders", 
-    headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': token
-    }),
-    mode: 'cors',
-    method: 'GET'
-  })
+  getInitData: (token) => parkingLotResources.getParkingLotByEmployee(token)
     .then(res => res.json())
     .then(res => {
       dispatch({
@@ -111,14 +105,7 @@ const mapDispatchToProps = dispatch => ({
     });
   },
   goToFetchList: (order, parkingLotId, token) => {
-    fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/" + parkingLotId, {
-      mode: 'cors',
-      method: 'PUT',
-      headers: new Headers({
-         'Content-Type': 'application/json',
-         'Authorization': token
-      })
-    })
+    orderResources.parkedOrder(token, order.orderId, parkingLotId)
       .then(res => {
         if (res.status == 200) {
           Toast.success("Order status updated", 1);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Layout } from 'antd';
 import { Toast, Button, WhiteSpace, WingBlank, List } from 'antd-mobile';
+import orderResources from "../resources/orderResources"
 const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 
@@ -68,15 +69,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getParkingLots: (token) => {
-        fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
-        //getInitData: fetch("http://localhost:8081/orders", 
-          headers: new Headers({
-              'Content-Type': 'application/json',
-              'Authorization': token
-          }),
-          mode: 'cors', 
-          method: 'GET'
-        })
+        orderResources.getOrderWithEmployee(token)
         .then(res => res.json())
         .then(res => dispatch({
             type: "SET_PARKING_LOTS",
@@ -90,15 +83,7 @@ const mapDispatchToProps = dispatch => ({
         })
     },
     finishOrder: (orderId, token) => {
-        fetch("https://parking-lot-backend.herokuapp.com/orders/" + orderId, {
-        //getInitData: fetch("http://localhost:8081/orders", 
-          headers: new Headers({
-              'Content-Type': 'application/json',
-              'Authorization': token
-          }),
-          mode: 'cors', 
-          method: 'DELETE'    
-        })
+        orderResources.finishOrder(orderId, token)
         .then(res => {
             if (res.status == 200) {
                 Toast.success("Order status updated", 1);

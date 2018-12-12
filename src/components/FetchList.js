@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { TabBar, List, NavBar, Icon } from 'antd-mobile';
 import Order from './Order';
 import { Toast } from 'antd-mobile';
+import orderResources from "../resources/orderResources"
+import parkingLotResources from "../resources/parkingLotResources"
 
 const Item = List.Item;
 
@@ -90,15 +92,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getInitData: (token) => {
-    fetch("https://parking-lot-backend.herokuapp.com/orders", {
-      //getInitData: fetch("http://localhost:8081/orders?status=parked", {
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': token
-      }),
-      mode: 'cors',
-      method: 'GET'
-    })
+    orderResources.getAll(token)
     .then(res => {
       if (res.status !== 200) {
         Toast.info("An error occurred when getting order list from server.", 1);
@@ -126,17 +120,8 @@ const mapDispatchToProps = dispatch => ({
     return true;
   },
   getParkingLots: (token) => {
-    fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
-      //getInitData: fetch("http://localhost:8081/orders", 
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': token
-      }),
-      mode: 'cors',
-      method: 'GET'
-    })
+    parkingLotResources.getParkingLotByEmployee(token)
     .then(res => {
-
       if (res.status !== 200) {
         Toast.info("An error occurred when getting order list from server.", 1);
         dispatch({

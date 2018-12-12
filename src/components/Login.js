@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Toast, List, InputItem, WhiteSpace, Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { connect } from "react-redux";
+import loginResources from "../resources/loginResources"
+import employeeResources from '../resources/employeeResources';
 
 class Login extends React.Component {
   clickLogin = () => {
@@ -41,17 +43,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({ 
-  
-  login: (name, password) => {
-    const identity ={username: name ,password: password};
-    fetch("https://parking-lot-backend.herokuapp.com/login",{
-        mode: 'cors',
-        method: 'POST', 
-        body: JSON.stringify(identity),
-        headers: new Headers({ 'Content-Type': 'application/json'})
-    })
+  login: (name, password) => 
+    loginResources.login(name, password)
     .then(res => {
-      console.log(res)
       if(res.status===200){
         dispatch({
           type: "SET_TOKEN",
@@ -68,9 +62,17 @@ const mapDispatchToProps = dispatch => ({
       } else {
         Toast.fail("Username/password incorrect!", 1, null, false);
       }
+      return res
     })
-    
-  }
+    .then(res => employeeResources.getEmployeeById(res.headers.get("Authorization"), 0)
+          .then(res => res.json())
+          .then(res => {
+            dispatch({
+              type: "GET_EMPLOYEE_BY_ID",
+              payload: res
+            })
+          })
+    )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
