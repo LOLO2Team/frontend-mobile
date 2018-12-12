@@ -20,11 +20,14 @@ class BottomNav extends Component {
             }
             selectedIcon={<i className="fa-icon fas fa-clipboard-list"></i>
             }
-            selected={this.props.selectedTab === 'OrdersTab'}
+            selected={
+              this.props.content === 'Orders' ||
+              this.props.content === 'OrderDetails'
+            }
             badge={0}
             onPress={() => {
               this.props.setRenderContent('Orders');
-              this.props.setBottomNav('OrdersTab');
+              // this.props.setBottomNav('OrdersTab');
             }}
             data-seed="logId"
           >
@@ -39,10 +42,13 @@ class BottomNav extends Component {
             title="Park"
             key="Park"
             // badge={'new'}
-            selected={this.props.selectedTab === 'ParkTab'}
+            selected={
+              this.props.content === 'ParkList' ||
+              this.props.content === 'ParkCar'
+            }
             onPress={() => {
               this.props.setRenderContent('ParkList');
-              this.props.setBottomNav('ParkTab');
+              // this.props.setBottomNav('ParkTab');
             }}
             data-seed="logId1"
           >
@@ -57,10 +63,13 @@ class BottomNav extends Component {
             title="Fetch"
             key="Fetch"
             // badge={'new'}
-            selected={this.props.selectedTab === 'FetchTab'}
+            selected={
+              this.props.content === 'FetchList' ||
+              this.props.content === 'FetchCar'
+            }
             onPress={() => {
               this.props.setRenderContent('FetchList');
-              this.props.setBottomNav('FetchTab');
+              // this.props.setBottomNav('FetchTab');
             }}
             data-seed="logId1"
           >
@@ -75,10 +84,10 @@ class BottomNav extends Component {
             title="History"
             key="History"
             // dot
-            selected={this.props.selectedTab === 'HistoryTab'}
+            selected={this.props.content === 'History'}
             onPress={() => {
               this.props.setRenderContent('History');
-              this.props.setBottomNav('HistoryTab');
+              // this.props.setBottomNav('HistoryTab');
             }}
           >
           </TabBar.Item>
@@ -87,10 +96,10 @@ class BottomNav extends Component {
             selectedIcon={<i className="fa-icon fas fa-user"></i>}
             title="MyProfile"
             key="MyProfile"
-            selected={this.props.selectedTab === 'MyProfileTab'}
+            selected={this.props.content === 'MyProfile'}
             onPress={() => {
               this.props.setRenderContent('MyProfile');
-              this.props.setBottomNav('MyProfileTab');
+              // this.props.setBottomNav('MyProfileTab');
             }}
           >
           </TabBar.Item>
@@ -101,7 +110,8 @@ class BottomNav extends Component {
 }
 
 const mapStateToProps = state => ({
-  selectedTab: state.selectedTab
+  selectedTab: state.selectedTab,
+  content: state.content
 });
 
 const mapDispatchToProps = dispatch => ({

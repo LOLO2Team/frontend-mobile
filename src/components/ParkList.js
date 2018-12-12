@@ -6,10 +6,31 @@ import { Toast } from 'antd-mobile';
 class ParkList extends Component {
   constructor(props) {
     super(props);
-    this.props.setHeader();
-    this.props.resetError();
+    this.state = {
+      parkingOrders: this.props.parkingOrders
+    }
+    this.props.resetError(this.props.error);
+    this.initLoading();
+    this.refreshOrderList();
+  }
+
+  initLoading = () => {
     if (!this.props.error) {
-      Toast.loading("Loading...", 100);
+      Toast.loading("Loading...", 1);
+    }
+  }
+
+  refreshOrderList = () => {
+    if (this.props.error === "orderListFetchError") {
+      return;
+    }
+    const dataGet = this.props.getInitData(this.props.token);
+    if (this.props.error === "loading") {
+      Toast.loading("Loading...", 1);
+      return;
+    }
+    if (JSON.stringify(this.state.parkingOrders) != JSON.stringify(this.props.parkingOrders)) {
+      this.setState({ parkingOrders: this.props.parkingOrders });
     }
   }
 
@@ -70,21 +91,21 @@ const mapDispatchToProps = dispatch => ({
             type: "GET_ORDERS",
             payload: res
           });
+          dispatch({
+            type: "SET_ERROR",
+            payload: false
+          });
         }
       })
     return true;
   },
-  resetError: () => {
-    dispatch({
-      type: "SET_ERROR",
-      payload: false
-    })
-  },
-  setHeader: () => {
-    dispatch({
-      type: "SET_HEADER",
-      payload: "Park List"
-    });
+  resetError: (error) => {
+    if (!error) {
+      dispatch({
+        type: "SET_ERROR",
+        payload: "loading"
+      })
+    }
   }
 })
 

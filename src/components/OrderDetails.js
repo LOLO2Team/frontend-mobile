@@ -66,20 +66,12 @@ const mapDispatchToProps = dispatch => ({
             type: "SET_RENDER_CONTENT",
             payload: "ParkCar"
           });
-          dispatch({
-            type: "SET_BOTTOM_NAV",
-            payload: "ParkTab"
-          });
-          dispatch({
-            type: "SET_HEADER",
-            payload: "Comfirm Order - Select Parking Lot"
-          });
         }
         else {
           if (res.status === 403) {
-            Toast.fail("Action not authorized", 3);
+            Toast.fail("Action not authorized", 2);
           } else {
-            Toast.fail("This order has been grabbed", 3);
+            Toast.fail("This order has been grabbed", 2);
           }
           dispatch({
             type: "SET_ERROR",
@@ -88,10 +80,6 @@ const mapDispatchToProps = dispatch => ({
           dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "Orders"
-          });
-          dispatch({
-            type: "SET_BOTTOM_NAV",
-            payload: "OrdersTab"
           });
         }
       })

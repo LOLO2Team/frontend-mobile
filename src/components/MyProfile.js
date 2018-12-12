@@ -3,11 +3,6 @@ import { connect } from "react-redux";
 import { Toast, Button } from 'antd-mobile';
 
 class MyProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.props.setBottomNav("MyPorfileTab");
-  }
-
   onLogout = () => {
     this.props.setRenderContent("Login");
     this.props.resetToken();
@@ -28,12 +23,6 @@ const mapDispatchToProps = dispatch => ({
       type: "SET_RENDER_CONTENT",
       payload: content
     });
-  },
-  setBottomNav: (tab) => {
-    dispatch({
-      type: "SET_BOTTOM_NAV",
-      payload: tab
-    })
   },
   resetToken: () => {
     dispatch({

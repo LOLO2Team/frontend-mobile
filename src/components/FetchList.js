@@ -12,18 +12,25 @@ class FetchList extends Component {
     this.state = {
       parkingOrders: this.props.parkingOrders
     }
-    this.props.setHeader();
-    this.props.resetError();
+    this.props.resetError(this.props.error);
+    this.initLoading();
     this.refreshOrderList();
+  }
+
+  initLoading = () => {
     if (!this.props.error) {
-      Toast.loading("Loading...", 100);
+      Toast.loading("Loading...", 1);
     }
   }
 
   refreshOrderList = () => {
+    if (this.props.error === "orderListFetchError") {
+      return;
+    }
     const dataGet = this.props.getInitData;
-    if (dataGet && !this.props.error) {
-      Toast.hide();
+    if (this.props.error === "loading") {
+      Toast.loading("Loading...", 1);
+      return;
     }
     if (JSON.stringify(this.state.parkingOrders) != JSON.stringify(this.props.parkingOrders)) {
       this.setState({ parkingOrders: this.props.parkingOrders });
@@ -31,6 +38,7 @@ class FetchList extends Component {
   }
 
   componentWillMount() {
+    this.props.resetError(this.props.error);
     this.refreshOrderList();
   }
 
@@ -111,7 +119,7 @@ const mapDispatchToProps = dispatch => ({
         });
         dispatch({
           type: "SET_ERROR",
-          payload: "false"
+          payload: false
         });
       }
     })
@@ -148,34 +156,15 @@ const mapDispatchToProps = dispatch => ({
         });
       }
     })
-  return true;
-      // .then(res => res.json())
-      // .then(res => {
-      //   if (res.status === 200) {
-      //     dispatch({
-      //       type: "SET_PARKING_LOTS",
-      //       payload: res
-      //     })  
-      //   } else {
-      //     Toast.info("An error occurred when getting fetching list from server.", 1);
-      //     dispatch({
-      //       type: "SET_ERROR",
-      //       payload: "orderListFetchError"
-      //     });
-      //   }
-      // })
+    return true;
   },
-  resetError: () => {
-    dispatch({
-      type: "SET_ERROR",
-      payload: false
-    })
-  },
-  setHeader: () => {
-    dispatch({
-      type: "SET_HEADER",
-      payload: "Park List"
-    });
+  resetError: (error) => {
+    if (!error) {
+      dispatch({
+        type: "SET_ERROR",
+        payload: "loading"
+      })
+    }
   }
 });
 

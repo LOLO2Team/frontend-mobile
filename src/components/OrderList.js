@@ -9,7 +9,15 @@ class OrderList extends Component {
     this.state = {
       parkingOrders: this.props.parkingOrders
     }
+    this.props.resetError(this.props.error);
+    this.initLoading();
     this.refreshOrderList();
+  }
+
+  initLoading = () => {
+    if (!this.props.error) {
+      Toast.loading("Loading...", 1);
+    }
   }
 
   refreshOrderList = () => {
@@ -26,10 +34,11 @@ class OrderList extends Component {
     }
   }
 
-  componentWillMount() {
-    this.props.resetError();
-    this.refreshOrderList();
-  }
+  // componentWillMount() {
+  //   this.props.resetError(this.props.error);
+  //   this.initLoading();
+  //   this.refreshOrderList();
+  // }
 
   componentDidMount() {
     this.refreshOrderList();
@@ -68,10 +77,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getInitData: (token) => {
-    // dispatch({
-    //   type: "SET_ERROR",
-    //   payload: "loading"
-    // });
     fetch("https://parking-lot-backend.herokuapp.com/orders?status=pending", {
       // fetch("http://localhost:8081/orders?status=pending", {
       //getInitData: fetch("http://localhost:8081/orders", {
@@ -102,18 +107,19 @@ const mapDispatchToProps = dispatch => ({
           });
           dispatch({
             type: "SET_ERROR",
-            payload: "false"
+            payload: false
           });
         }
       })
     return true;
-
   },
-  resetError: () => {
-    dispatch({
-      type: "SET_ERROR",
-      payload: "loading"
-    })
+  resetError: (error) => {
+    if (!error) {
+      dispatch({
+        type: "SET_ERROR",
+        payload: "loading"
+      })
+    }
   }
 });
 

@@ -109,10 +109,6 @@ const mapDispatchToProps = dispatch => ({
       type: "SET_RENDER_CONTENT",
       payload: "ParkList"
     });
-    dispatch({
-      type: "SET_BOTTOM_NAV",
-      payload: "ParkTab"
-    })
   },
   goToFetchList: (order, parkingLotId, token) => {
     fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/parkingLotId/" + parkingLotId, {
@@ -141,10 +137,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: "SET_RENDER_CONTENT",
       payload: "FetchList"
-    });
-    dispatch({
-      type: "SET_BOTTOM_NAV",
-      payload: "FetchTab"
     });
   }
 });

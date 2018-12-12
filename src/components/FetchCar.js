@@ -49,7 +49,7 @@ class FetchCar extends Component {
                     </List>
 
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={() => this.onClickFetch(order.orderId)}>Fetch Car</Button><WhiteSpace />
+                    <Button type="primary" onClick={() => this.onClickFetch(order.orderId)}>Finished Fetching</Button><WhiteSpace />
                     <Button type="primary" onClick={this.onClickCancel}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
@@ -117,9 +117,6 @@ const mapDispatchToProps = dispatch => ({
         .then(dispatch({
             type: "SET_RENDER_CONTENT",
             payload: "History"
-        })).then(dispatch({
-            type: "SET_BOTTOM_NAV",
-            payload: "HistoryTab"
         }));
     },
     goToFetchList: () => {
