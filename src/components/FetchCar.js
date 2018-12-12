@@ -12,7 +12,7 @@ class FetchCar extends Component {
         );
     }
     onClickFetch = (orderId) => {
-        this.props.finishOrder(orderId);
+        this.props.finishOrder(orderId, this.props.token);
         return;
     }
     onClickCancel = () => {
@@ -27,7 +27,7 @@ class FetchCar extends Component {
     // }
 
     render() {
-        const dummy = this.props.getParkingLots;
+        const dummy = this.props.getParkingLots(this.props.token);
         const order = this.getOrder(this.props.orderId);
         const dummy2 = this.props.getFetchParkingLot(order.parkingLotId);
 
@@ -62,15 +62,17 @@ const mapStateToProps = state => ({
     orderId: state.orderId,
     parkingLotId: state.parkingLotId,
     parkingLots: state.parkingLots,
-    parkingLotName: state.parkingLotName
+    parkingLotName: state.parkingLotName,
+    token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-    getParkingLots: () => {
+    getParkingLots: (token) => {
         fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
         //getInitData: fetch("http://localhost:8081/orders", 
           headers: new Headers({
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': token
           }),
           mode: 'cors', 
           method: 'GET'
@@ -87,11 +89,12 @@ const mapDispatchToProps = dispatch => ({
             payload: id
         })
     },
-    finishOrder: (orderId) => {
+    finishOrder: (orderId, token) => {
         fetch("https://parking-lot-backend.herokuapp.com/orders/" + orderId, {
         //getInitData: fetch("http://localhost:8081/orders", 
           headers: new Headers({
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': token
           }),
           mode: 'cors', 
           method: 'DELETE'    

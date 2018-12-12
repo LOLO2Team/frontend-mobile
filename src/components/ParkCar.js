@@ -45,7 +45,7 @@ class ParkCar extends Component {
 
   render() {
     const order = this.getOrder(this.props.orderId);
-    const dummy = this.props.getInitData;
+    const dummy = this.props.getInitData(this.props.token);
     return (
       <div>
         <Content style={{
@@ -81,10 +81,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
+  getInitData: (token) => fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
     //getInitData: fetch("http://localhost:8081/orders", 
     headers: new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': token
     }),
     mode: 'cors',
     method: 'GET'

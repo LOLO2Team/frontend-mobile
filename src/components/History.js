@@ -7,7 +7,7 @@ class History extends Component {
         orderId: 1
     }
     render() {
-        const dummy = this.props.finishOrder
+        const dummy = this.props.finishOrder(this.props.token)
         const checkNoOrders = () => {
             if (this.props.parkingOrders.length === 0) {
                 return <div>Your order list is empty now!</div>
@@ -27,14 +27,16 @@ const mapStateToProps = state => ({
     parkingOrders: state.parkingOrders,
     orderId: state.orderId,
     parkingLotId: state.parkingLotId,
-    parkingLots: state.parkingLots
+    parkingLots: state.parkingLots,
+    token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-    finishOrder: fetch("https://parking-lot-backend.herokuapp.com/orders?status=fetched", {
+    finishOrder: (token) => fetch("https://parking-lot-backend.herokuapp.com/orders?status=fetched", {
         //getInitData: fetch("http://localhost:8081/orders", 
         headers: new Headers({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': token
         }),
         mode: 'cors',
         method: 'GET'
