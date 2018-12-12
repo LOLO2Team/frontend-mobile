@@ -89,7 +89,7 @@ class BottomNav extends Component {
             key="MyProfile"
             selected={this.props.selectedTab === 'MyProfileTab'}
             onPress={() => {
-              this.props.setRenderContent('My Profile');
+              this.props.setRenderContent('MyProfile');
               this.props.setBottomNav('MyProfileTab');
             }}
           >

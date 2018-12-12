@@ -12,6 +12,7 @@ import HeaderBar from './components/HeaderBar';
 import BottomNav from './components/BottomNav';
 import ParkList from './components/ParkList';
 import History from './components/History';
+import MyProfile from './components/MyProfile';
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 // const Item = List.Item;
@@ -41,15 +42,12 @@ class App extends Component {
       
       case "FetchList":
         return (<FetchList />);
-        // return null;
 
       case "History":
-      return (<History />);
-        // Freturn null;
+        return (<History />);
 
       case "MyProfile":
-        // return (<MyProfile />);
-        return null;
+        return (<MyProfile />);
 
       case "OrderDetails":
         return (<OrderDetails />);
