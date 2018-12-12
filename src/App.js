@@ -28,8 +28,8 @@ class App extends Component {
     };
   }
 
-  renderContent(pageText, id=0) {
-    switch(pageText) {
+  renderContent() {
+    switch(this.props.content) {
       case "Login":
         return (<Login />);
 
@@ -65,13 +65,18 @@ class App extends Component {
       
     }
   }
+  renderBottomNav() {
+    if (this.props.content !== "Login") {
+      return  <BottomNav />;
+    }
+  }
 
   render() {
     return (
       <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { minHeight: 892 }}>
         <HeaderBar />
-        {this.renderContent(this.props.content)}
-        <BottomNav />
+        {this.renderContent()}
+        {this.renderBottomNav()}
       </div>
     );
   }
