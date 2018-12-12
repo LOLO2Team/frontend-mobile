@@ -30,7 +30,6 @@ class Login extends React.Component {
           >Password</InputItem>
         </List>
         <Button type="primary" onClick={this.clickLogin}>Login</Button><WhiteSpace />
-        <Button type="" >Sign Up</Button><WhiteSpace />
       </div>
     )
   }
