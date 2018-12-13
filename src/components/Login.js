@@ -39,6 +39,7 @@ class Login extends React.Component {
 Login = createForm()(Login);
 
 const mapStateToProps = state => ({
+  user: state.user,
   token: state.token
 });
 
@@ -46,25 +47,38 @@ const mapDispatchToProps = dispatch => ({
   login: (name, password) => 
     loginResources.login(name, password)
     .then(res => {
+      console.log(res)
       if(res.status===200){
         dispatch({
           type: "SET_TOKEN",
           payload: res.headers.get("Authorization")
         });
-        dispatch({
+        employeeResources.getEmployeeByName(res.headers.get("Authorization"), name)
+        .then (response => response.json())
+        .then (response => 
+          dispatch({
           type: "SET_USER",
-          payload: res
-        });
-        dispatch({
-          type: "SET_RENDER_CONTENT",
-          payload: "Orders"
-        })
+          payload: response
+          })
+        )
+        .then( response =>{
+          console.log(res.headers.get("Authorization"))
+            employeeResources.setEmployeeStatus(res.headers.get("Authorization"), response.payload.employeeId, "WORKING")
+          }
+        )
+        .then(
+          dispatch({
+            type: "SET_RENDER_CONTENT",
+            payload: "Orders"
+          })
+        )
       } else {
         Toast.fail("Username/password incorrect!", 1, null, false);
       }
       return res
     })
-    .then(res => employeeResources.getEmployeeById(res.headers.get("Authorization"), 0)
+    .then(res => res.json())
+    .then(res => employeeResources.getEmployeeById(res.headers.get("Authorization"), res.employeeId)
           .then(res => res.json())
           .then(res => {
             dispatch({
