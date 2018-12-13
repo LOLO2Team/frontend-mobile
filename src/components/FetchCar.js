@@ -8,7 +8,8 @@ const Item = List.Item;
 
 class FetchCar extends Component {
     state = {
-        flag:true
+        flag:true,
+        orderId:0
     }
     getOrder = (orderId) => {
         return this.props.parkingOrders.find(
@@ -37,6 +38,7 @@ class FetchCar extends Component {
             order = this.getOrder(this.props.orderId);
             const dummy2 = this.props.getFetchParkingLot(order.parkingLotId);
             this.setState({
+                orderId:this.props.orderId,
                 flag:false
             })
         }
@@ -59,7 +61,7 @@ class FetchCar extends Component {
                     </List>
 
                     {/* <p>Parking Lot: <span>{this.props.parkingLot}</span></p> */}
-                    <Button type="primary" onClick={() => this.onClickFetch(order.orderId)}>Finished Fetching</Button><WhiteSpace />
+                    <Button type="primary" onClick={() => this.onClickFetch(this.state.orderId)}>Finished Fetching</Button><WhiteSpace />
                     <Button type="primary" onClick={this.onClickCancel}>Cancel</Button><WhiteSpace />
                 </Content>
             </div>
