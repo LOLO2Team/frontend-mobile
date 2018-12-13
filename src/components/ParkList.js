@@ -25,7 +25,7 @@ class ParkList extends Component {
     if (this.props.error === "orderListFetchError") {
       return;
     }
-    const dataGet = this.props.getInitData(this.props.token, this.props.user.employeeId);
+    const dataGet = this.props.getInitData(this.props.token);
     if (this.props.error === "loading") {
       Toast.loading("Loading...", 1);
       return;
@@ -36,7 +36,7 @@ class ParkList extends Component {
   }
 
   render() {
-    const dataGet = this.props.getInitData(this.props.token, this.props.user.employeeId);
+    const dataGet = this.props.getInitData(this.props.token);
     if (dataGet && !this.props.error) {
       Toast.hide();
     }
@@ -60,13 +60,12 @@ class ParkList extends Component {
 
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders,
-  token: state.token,
-  user: state.user
+  token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: (token, id) => {
-    orderResources.getOrderWithEmployee(token, id)
+  getInitData: (token) => {
+    orderResources.getAll(token)
       .then(res => {
         if (res.status !== 200) {
           Toast.info("An error occurred when getting order list from server.", 1);

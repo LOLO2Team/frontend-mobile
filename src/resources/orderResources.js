@@ -10,19 +10,8 @@ export default {
                 method: 'GET'
                 })
     },
-    getOrderWithEmployee: (token, userId) => {
-        return  fetch("https://parking-lot-backend.herokuapp.com/orders?employeeId=" + userId, {
-                //getInitData: fetch("http://localhost:8081/orders", 
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                }),
-                mode: 'cors', 
-                method: 'GET'
-                })
-    },
-    getOrderWithEmployeeAndStatus: (token, userId, status) => {
-        return  fetch("https://parking-lot-backend.herokuapp.com/orders?status=" + status + "&employeeId=" + userId, {
+    getOrderWithEmployee: (token) => {
+        return  fetch("https://parking-lot-backend.herokuapp.com/parkinglots?employeeId=0", {
                 //getInitData: fetch("http://localhost:8081/orders", 
                 headers: new Headers({
                     'Content-Type': 'application/json',
@@ -42,8 +31,8 @@ export default {
                 })
       })
     },
-    grabOrderWithId: (order, token, userId) => {
-        return  fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/" + userId, {
+    grabOrderWithId: (order, token) => {
+        return  fetch("https://parking-lot-backend.herokuapp.com/orders/" + order.orderId + "/employeeId/0", {
                 //fetch("http://localhost:8081/orders/" + order.orderId + "/employeeId/0",{
                 mode: 'cors',
                 method: 'PUT',

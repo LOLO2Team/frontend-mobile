@@ -54,8 +54,8 @@ class FetchList extends Component {
   }
 
   render() {
-    const dummy = this.props.getInitData(this.props.token, this.props.user.employeeId);
-    const dummy2 = this.props.getParkingLots(this.props.token, this.props.user.employeeId);
+    const dummy = this.props.getInitData(this.props.token);
+    const dummy2 = this.props.getParkingLots(this.props.token);
     const checkNoFetchings = () => {
       if (this.state.parkingOrders.filter((order) => order.orderStatus === "parked" || order.orderStatus === "fetching").length === 0) {
         return <h2 className="empty-list">Your fetching list is empty now!</h2>
@@ -87,13 +87,12 @@ class FetchList extends Component {
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders,
   error: state.error,
-  token: state.token,
-  user: state.user
+  token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: (token, id) => {
-    orderResources.getOrderWithEmployee(token, id)
+  getInitData: (token) => {
+    orderResources.getAll(token)
     .then(res => {
       if (res.status !== 200) {
         Toast.info("An error occurred when getting order list from server.", 1);
@@ -120,8 +119,8 @@ const mapDispatchToProps = dispatch => ({
     })
     return true;
   },
-  getParkingLots: (token, id) => {
-    parkingLotResources.getParkingLotByEmployee(token, id)
+  getParkingLots: (token) => {
+    parkingLotResources.getParkingLotByEmployee(token)
     .then(res => {
       if (res.status !== 200) {
         Toast.info("An error occurred when getting order list from server.", 1);

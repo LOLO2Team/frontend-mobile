@@ -25,7 +25,7 @@ class History extends Component {
     if (this.props.error === "orderListFetchError") {
       return;
     }
-    const dataGet = this.props.getInitData(this.props.token, this.props.user.employeeId, "fetched");
+    const dataGet = this.props.getInitData(this.props.token);
     if (this.props.error === "loading") {
       Toast.loading("Loading...", 1);
       return;
@@ -38,7 +38,7 @@ class History extends Component {
   render() {
     const checkNoOrders = () => {
       if (this.props.parkingOrders.length === 0) {
-        return <h2 className="empty-list">You have not finished any order!</h2>
+        return <div>Your order list is empty now!</div>
       }
     }
     return (
@@ -56,13 +56,12 @@ const mapStateToProps = state => ({
   orderId: state.orderId,
   parkingLotId: state.parkingLotId,
   parkingLots: state.parkingLots,
-  user: state.user,
   token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: (token, employeeId, status) => {
-    orderResources.getOrderWithEmployeeAndStatus(token, employeeId, status) 
+  getInitData: (token) => {
+    orderResources.getFetchedOrder(token) 
     .then(res => {
       if (res.status !== 200) {
         Toast.info("An error occurred when getting order list from server.", 1);
