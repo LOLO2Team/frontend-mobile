@@ -47,7 +47,7 @@ class ParkCar extends Component {
 
   render() {
     const order = this.getOrder(this.props.orderId);
-    const dummy = this.props.getInitData(this.props.token);
+    const dummy = this.props.getInitData(this.props.token, this.props.user.employeeId);
     return (
       <div>
         <Content style={{
@@ -79,11 +79,12 @@ const mapStateToProps = state => ({
   orderId: state.orderId,
   parkingLotId: state.parkingLotId,
   parkingLots: state.parkingLots,
+  user: state.user,
   token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInitData: (token) => parkingLotResources.getParkingLotByEmployee(token)
+  getInitData: (token, employeeId) => parkingLotResources.getParkingLotByEmployee(token, employeeId)
     .then(res => res.json())
     .then(res => {
       dispatch({

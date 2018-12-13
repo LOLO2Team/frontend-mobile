@@ -25,7 +25,7 @@ class OrderDetails extends Component {
             <Item extra={order.orderId}>Order ID</Item>
             <Item extra={order.vehicleNumber}>Car ID</Item>
           </List>
-          <Button type="primary" onClick={() => this.props.onConfirm(order,this.props.token)}>Confirm Order</Button><WhiteSpace />
+          <Button type="primary" onClick={() => this.props.onConfirm(order,this.props.token, this.props.user.employeeId)}>Confirm Order</Button><WhiteSpace />
           <Button type="primary" onClick={this.props.onCancel}>Cancel</Button><WhiteSpace />
         </Content>
       </div>
@@ -36,12 +36,13 @@ class OrderDetails extends Component {
 const mapStateToProps = state => ({
   parkingOrders: state.parkingOrders,
   orderId: state.orderId,
+  user: state.user,
   token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  onConfirm: (order, token) => {
-    orderResources.grabOrderWithId(order, token) 
+  onConfirm: (order, token, userId) => {
+    orderResources.grabOrderWithId(order, token, userId) 
       .then(res => {
         if (res.status === 200) {
           Toast.success("Order confirmed", 1);

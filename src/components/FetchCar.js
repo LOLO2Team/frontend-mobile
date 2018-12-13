@@ -28,7 +28,7 @@ class FetchCar extends Component {
     // }
 
     render() {
-        const dummy = this.props.getParkingLots(this.props.token);
+        const dummy = this.props.getParkingLots(this.props.token, this.props.user.employeeId);
         const order = this.getOrder(this.props.orderId);
         const dummy2 = this.props.getFetchParkingLot(order.parkingLotId);
 
@@ -64,12 +64,13 @@ const mapStateToProps = state => ({
     parkingLotId: state.parkingLotId,
     parkingLots: state.parkingLots,
     parkingLotName: state.parkingLotName,
+    user: state.user,
     token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
-    getParkingLots: (token) => {
-        orderResources.getOrderWithEmployee(token)
+    getParkingLots: (token, userId) => {
+        orderResources.getOrderWithEmployee(token, userId)
         .then(res => res.json())
         .then(res => dispatch({
             type: "SET_PARKING_LOTS",

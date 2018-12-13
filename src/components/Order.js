@@ -50,27 +50,33 @@ class Order extends Component {
         }
 
         const getLocation = () =>{
-            if(this.props.order.parkingLotId !== null){
-                return this.props.order.parkingLotId;
+            if(this.props.order.parkingLotId !== undefined && this.props.order.parkingLotId !== null){
+                const filteredLot = this.props.parkingLots.filter((lot) => lot.id === this.props.order.parkingLotId);
+                return filteredLot[0].label
             }
+            else return "Not Yet Parked"
         }
 
         return (
             <div className="order">
-                <Item onClick={this.orderClicked} extra={getLocation()} className="order-item" >
+                <Item onClick={this.orderClicked} className="order-item" >
                     {printFetchMark()}
                     {printCarIcon()}
                     {printHistoryIcon()}
-                    
                     <div className="order-desc">
-                        <div>Order ID {this.props.order.orderId}</div>
-                        <div>{this.props.order.vehicleNumber}</div>
+                        <div>Order ID: {this.props.order.orderId}</div>
+                        <div>Car ID: {this.props.order.vehicleNumber}</div>
+                        <div>Parking Lot: {getLocation()}</div>
                     </div>
                 </Item>
             </div>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    parkingLots: state.parkingLots
+  });
 
 const mapDispatchToProps = dispatch => ({
     setParkingOrder: (orderId) => {
@@ -100,4 +106,4 @@ const mapDispatchToProps = dispatch => ({
     
 });
 
-export default connect(null, mapDispatchToProps)(Order);
+export default connect(mapStateToProps, mapDispatchToProps)(Order);
