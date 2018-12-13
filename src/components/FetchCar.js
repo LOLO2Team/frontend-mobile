@@ -7,6 +7,9 @@ const { Header, Sider, Content } = Layout;
 const Item = List.Item;
 
 class FetchCar extends Component {
+    state = {
+        flag:true
+    }
     getOrder = (orderId) => {
         return this.props.parkingOrders.find(
           (order) => order.orderId === orderId
@@ -28,9 +31,15 @@ class FetchCar extends Component {
     // }
 
     render() {
-        const dummy = this.props.getParkingLots(this.props.token, this.props.user.employeeId);
-        const order = this.getOrder(this.props.orderId);
-        const dummy2 = this.props.getFetchParkingLot(order.parkingLotId);
+        var order = ''
+        if (this.state.flag === true){
+            const dummy = this.props.getParkingLots(this.props.token, this.props.user.employeeId);
+            order = this.getOrder(this.props.orderId);
+            const dummy2 = this.props.getFetchParkingLot(order.parkingLotId);
+            this.setState({
+                flag:false
+            })
+        }
 
         // console.log("---------------[FetchCar]: ")
         // console.log(order)

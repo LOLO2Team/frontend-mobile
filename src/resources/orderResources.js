@@ -51,7 +51,7 @@ export default {
                     "content": order.orderId,
                     "vehicleNumber": order.vehicleNumber,
                     "orderStatus": "parking",
-                    "employeeId": 0
+                    "employeeId": userId
                 }),
                 headers: new Headers({ 
                     'Content-Type': 'application/json',

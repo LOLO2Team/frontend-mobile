@@ -15,7 +15,8 @@ const initialState = {
   header: "Parking!",
   error: "loading",
   token: "",
-  user: ""
+  user: "",
+  order:""
 }
 
 export default (state = initialState, { type, payload }) => {
